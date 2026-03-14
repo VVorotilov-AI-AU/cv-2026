@@ -1,402 +1,1079 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Vladimir Vorotilov - CV 2026</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vladimir Vorotilov -- AI &amp; Analytics Consultant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
 
-  @page {
-    size: A4 portrait;
-    margin: 13mm 16mm;
-  }
+    /* ============================================================
+       PRINT STYLES
+       ============================================================ */
+    @media print {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+      }
+      body {
+        background: white !important;
+        color: #111 !important;
+        font-family: 'Inter', Arial, sans-serif;
+        font-size: 10pt;
+        line-height: 1.4;
+      }
+      #particle-canvas, .cursor-glow, .annotation-tooltip { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .annotated { text-decoration: none !important; color: inherit !important; }
+      .name-text { color: #1a3a5c !important; -webkit-text-fill-color: #1a3a5c !important; background: none !important; }
+      .section-header { color: #1a3a5c !important; border-color: #cdd8e3 !important; }
+      .job-card, .project-card, .edu-block, .cert-item, .additional-item, .summary-text {
+        background: white !important; border: 1px solid #ccc !important; break-inside: avoid;
+      }
+      header { border-color: #1a3a5c !important; }
+      .job-company { color: #1a3a5c !important; }
+      .edu-school { color: #1a3a5c !important; }
+      .competency-chip { background: #f0f4f8 !important; color: #1a3a5c !important; border-left-color: #1a3a5c !important; border-color: #ccc !important; }
+      .job-date, .project-meta, .edu-date { color: #555 !important; }
+      .job-card li, .project-card p, .summary-text, .additional-item span { color: #222 !important; }
+      .typing-cursor { display: none !important; }
+      .section-header::before { display: none; }
+      section { margin-bottom: 20pt !important; }
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ============================================================
+       CSS VARIABLES
+       ============================================================ */
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface-2: #162032;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #f4a825;
+      --accent-glow: rgba(244, 168, 37, 0.12);
+      --accent-2: #3b82f6;
+      --accent-3: #10b981;
+      --accent-4: #a78bfa;
+      --radius-card: 12px;
+      --radius-sm: 8px;
+      --mx: 50%;
+      --my: 50%;
+      --glow-color: rgba(244, 168, 37, 0.07);
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 10pt;
-    line-height: 1.4;
-    color: #1a1a1a;
-    background: white;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+    /* ============================================================
+       RESET AND BASE
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-  /* ---- HEADER ---- */
-  .header {
-    border-bottom: 2.5px solid #1a3a5c;
-    padding-bottom: 9px;
-    margin-bottom: 10px;
-  }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  .header h1 {
-    font-size: 21pt;
-    font-weight: 700;
-    color: #1a3a5c;
-    letter-spacing: -0.3px;
-  }
+    /* ============================================================
+       PARTICLE CANVAS
+       ============================================================ */
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  .header .tagline {
-    font-size: 9.5pt;
-    color: #444;
-    margin-top: 2px;
-    font-style: italic;
-  }
+    /* ============================================================
+       CURSOR GLOW
+       ============================================================ */
+    .cursor-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(
+        600px circle at var(--mx) var(--my),
+        var(--glow-color),
+        transparent 60%
+      );
+    }
 
-  .contact-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 6px;
-    font-size: 9pt;
-    color: #333;
-  }
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .page-wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
 
-  .contact-row a { color: #1a3a5c; text-decoration: none; }
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+    }
 
-  /* ---- SECTION TITLES ---- */
-  .section-title {
-    font-size: 9.5pt;
-    font-weight: 700;
-    color: #1a3a5c;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid #cdd8e3;
-    padding-bottom: 2px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
+    .name-text {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 65%, #fb923c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
 
-  /* ---- SUMMARY ---- */
-  .summary {
-    font-size: 10pt;
-    color: #222;
-    line-height: 1.45;
-  }
+    .tagline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
 
-  /* ---- COMPETENCIES ---- */
-  .competencies-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px 6px;
-  }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 0.875rem;
+    }
 
-  .competency-item {
-    background: #f0f4f8;
-    border-left: 3px solid #1a3a5c;
-    padding: 3px 7px;
-    font-size: 9pt;
-    font-weight: 600;
-    color: #1a3a5c;
-    border-radius: 2px;
-  }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
 
-  /* ---- JOBS ---- */
-  .job {
-    margin-bottom: 9px;
-  }
+    .contact-item:hover { color: var(--accent); }
 
-  .job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
+    .contact-item a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-  .job-title {
-    font-size: 10.5pt;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
+    .contact-item a:hover { color: var(--accent-2); }
 
-  .job-date {
-    font-size: 9pt;
-    color: #555;
-    white-space: nowrap;
-    margin-left: 8px;
-  }
+    .contact-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
 
-  .job-company {
-    font-size: 9.5pt;
-    color: #1a3a5c;
-    font-weight: 600;
-    margin-bottom: 3px;
-  }
+    /* ============================================================
+       SECTIONS
+       ============================================================ */
+    section { margin-bottom: 44px; }
 
-  .job ul {
-    padding-left: 13px;
-    margin-top: 2px;
-  }
+    .section-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      white-space: nowrap;
+      min-height: 1.6em;
+    }
 
-  .job li {
-    font-size: 9.5pt;
-    margin-bottom: 1.5px;
-    color: #222;
-  }
+    .section-header::before {
+      content: '//';
+      opacity: 0.35;
+    }
 
-  /* ---- PAGE 2 START ---- */
-  .page-2-start {
-    break-before: page;
-    page-break-before: always;
-  }
+    /* ============================================================
+       REVEAL ANIMATIONS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
 
-  /* ---- PROJECTS ---- */
-  .project {
-    margin-bottom: 7px;
-  }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
+    .d1 { transition-delay: 0.10s; }
+    .d2 { transition-delay: 0.20s; }
+    .d3 { transition-delay: 0.30s; }
+    .d4 { transition-delay: 0.40s; }
+    .d5 { transition-delay: 0.50s; }
 
-  .project-name {
-    font-size: 10pt;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
+    /* ============================================================
+       SUMMARY
+       ============================================================ */
+    .summary-text {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.75;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px 28px;
+    }
 
-  .project-meta {
-    font-size: 9pt;
-    color: #555;
-    white-space: nowrap;
-    margin-left: 8px;
-  }
+    /* ============================================================
+       COMPETENCIES
+       ============================================================ */
+    .competencies-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-  .project p {
-    font-size: 9.5pt;
-    color: #333;
-    margin-top: 2px;
-    line-height: 1.4;
-  }
+    .competency-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: default;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-  /* ---- EDUCATION ---- */
-  .edu-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
+    .competency-chip::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent-glow);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
 
-  .edu-degree {
-    font-size: 10pt;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
+    .competency-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(244, 168, 37, 0.12);
+    }
 
-  .edu-school {
-    font-size: 9.5pt;
-    color: #1a3a5c;
-    font-weight: 600;
-  }
+    .competency-chip:hover::after { opacity: 1; }
 
-  .edu-date {
-    font-size: 9pt;
-    color: #555;
-  }
+    /* ============================================================
+       CARDS (3D TILT)
+       ============================================================ */
+    .job-card, .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 14px;
+      transform-style: preserve-3d;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+      will-change: transform;
+    }
 
-  /* ---- CERTS ---- */
-  .certs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3px 20px;
-  }
+    .job-card:hover, .project-card:hover {
+      border-color: rgba(244, 168, 37, 0.28);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(244,168,37,0.07);
+    }
 
-  .cert-item {
-    font-size: 9pt;
-    color: #333;
-    padding-left: 10px;
-    position: relative;
-  }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 6px;
+    }
 
-  .cert-item::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #1a3a5c;
-  }
+    .job-title, .project-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
 
-  /* ---- ADDITIONAL ---- */
-  .additional-row {
-    display: flex;
-    gap: 24px;
-    font-size: 9.5pt;
-    color: #333;
-  }
+    .job-date, .project-meta {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
 
-  .additional-row span strong { color: #1a3a5c; }
+    .project-meta { color: var(--accent); opacity: 0.8; }
 
-</style>
+    .job-company {
+      font-size: 0.875rem;
+      color: var(--accent-2);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .job-card ul { padding-left: 18px; }
+
+    .job-card li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+      line-height: 1.55;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-top: 10px;
+    }
+
+    /* ============================================================
+       ANNOTATION SYSTEM
+       ============================================================ */
+    .annotated {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: rgba(244, 168, 37, 0.55);
+      text-underline-offset: 3px;
+      cursor: help;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .annotated:hover, .annotated.ann-active {
+      color: var(--accent);
+      text-shadow: 0 0 14px rgba(244, 168, 37, 0.25);
+    }
+
+    .annotation-tooltip {
+      position: fixed;
+      z-index: 9999;
+      max-width: 320px;
+      min-width: 200px;
+      background: var(--surface-2);
+      border: 1px solid rgba(244, 168, 37, 0.32);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px) scale(0.97);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(244,168,37,0.07);
+    }
+
+    .annotation-tooltip.ann-show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .ann-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 9px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .tag-Te { background: rgba(244,168,37,0.12); color: var(--accent);   border: 1px solid rgba(244,168,37,0.25); }
+    .tag-Ni { background: rgba(59,130,246,0.12);  color: var(--accent-2); border: 1px solid rgba(59,130,246,0.25); }
+    .tag-Se { background: rgba(16,185,129,0.12);  color: var(--accent-3); border: 1px solid rgba(16,185,129,0.25); }
+    .tag-Fi { background: rgba(167,139,250,0.12); color: var(--accent-4); border: 1px solid rgba(167,139,250,0.25); }
+
+    .ann-body { display: block; color: var(--text); }
+
+    /* ============================================================
+       EDUCATION
+       ============================================================ */
+    .edu-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .edu-degree { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .edu-school { font-size: 0.875rem; color: var(--accent-2); margin-top: 4px; }
+    .edu-date { font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); flex-shrink: 0; margin-top: 3px; }
+
+    /* ============================================================
+       CERTIFICATIONS
+       ============================================================ */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+
+    .cert-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 11px 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .cert-item:hover { border-color: rgba(244,168,37,0.2); color: var(--text); }
+
+    .cert-item::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ============================================================
+       ADDITIONAL
+       ============================================================ */
+    .additional-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .additional-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-size: 0.875rem;
+    }
+
+    .additional-item strong {
+      color: var(--accent);
+      margin-right: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .additional-item span { color: var(--text-muted); }
+
+    /* ============================================================
+       RELOCATION NOTE
+       ============================================================ */
+    .relocation-note {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-style: italic;
+      text-align: center;
+      padding: 12px 0 4px;
+      margin-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       TYPING CURSOR
+       ============================================================ */
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 0.85em;
+      background: var(--accent);
+      margin-left: 1px;
+      vertical-align: text-top;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      .page-wrapper { padding: 32px 18px 60px; }
+      .card-header { flex-direction: column; gap: 4px; }
+      .job-date, .project-meta { white-space: normal; }
+      .edu-header { flex-direction: column; gap: 6px; }
+      .additional-grid { flex-direction: column; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+      .annotation-tooltip { max-width: calc(100vw - 24px); }
+    }
+
+    @media (max-width: 480px) {
+      .page-wrapper { padding: 24px 14px 48px; }
+      .competency-chip { font-size: 0.82rem; padding: 7px 12px; }
+      .certs-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      #particle-canvas { display: none !important; }
+      .cursor-glow { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .annotation-tooltip { transition: none !important; }
+      .competency-chip { transition: none !important; }
+      .job-card, .project-card { transition: border-color 0.2s ease, box-shadow 0.2s ease !important; }
+      .typing-cursor { animation: none !important; }
+    }
+
+  </style>
 </head>
 <body>
 
-<!-- ======================== PAGE 1 ======================== -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="cursor-glow" aria-hidden="true"></div>
 
-<div class="header">
-  <h1>Vladimir Vorotilov</h1>
-  <div class="tagline">AI &amp; Analytics Consultant | Mining Operations | Perth, Western Australia</div>
-  <div class="contact-row">
-    <span>vvorotilov.au@gmail.com</span>
-    <span>+61 457 852 522</span>
-    <span><a href="https://linkedin.com/in/vladimir-vorotilov">linkedin.com/in/vladimir-vorotilov</a></span>
-    <span>Full working rights in Australia</span>
+  <!-- Annotation tooltip singleton -->
+  <div class="annotation-tooltip" id="ann-tip" role="tooltip">
+    <span class="ann-tag" id="ann-tag"></span>
+    <span class="ann-body" id="ann-body"></span>
   </div>
-</div>
 
-<div class="section-title">Professional Summary</div>
-<div class="summary">
-  Mining operations professional who built a second career in AI and analytics. Eleven years running heavy industry operations across Russia's Caterpillar and Komatsu dealer networks: underground mining, fleet systems, $200M+ revenue management. Now professionally delivering AI automation and workflow integration to client business processes using Claude Code, n8n, and Microsoft Power Platform. Maintains several personal AI productivity systems to test and refine automation approaches. Available immediately for senior AI, digital, consulting, or operational management roles in Perth where modern tools are part of the mandate.
-</div>
+  <div class="page-wrapper">
 
-<div class="section-title">Core Competencies</div>
-<div class="competencies-grid">
-  <div class="competency-item">Industrial AI Strategy</div>
-  <div class="competency-item">AI Agent Development</div>
-  <div class="competency-item">Mining Operations (11yr)</div>
-  <div class="competency-item">Fleet &amp; MineStar Systems</div>
-  <div class="competency-item">Power BI &amp; Analytics</div>
-  <div class="competency-item">ERP/CRM Integration (D365)</div>
-  <div class="competency-item">P&amp;L Management ($200M+)</div>
-  <div class="competency-item">Team Leadership (286 staff)</div>
-</div>
+    <!-- HEADER -->
+    <header class="reveal">
+      <h1 class="name-text">Vladimir Vorotilov</h1>
+      <p class="tagline">AI &amp; Analytics Consultant | Mining Operations | Perth, Western Australia</p>
+      <div class="contact-row">
+        <span class="contact-item">
+          <span class="contact-dot" aria-hidden="true"></span>
+          vvorotilov.au@gmail.com
+        </span>
+        <span class="contact-item">
+          <span class="contact-dot" aria-hidden="true"></span>
+          +61 457 852 522
+        </span>
+        <span class="contact-item">
+          <span class="contact-dot" aria-hidden="true"></span>
+          <a href="https://linkedin.com/in/vladimir-vorotilov" target="_blank" rel="noopener noreferrer">linkedin.com/in/vladimir-vorotilov</a>
+        </span>
+        <span class="contact-item">
+          <span class="contact-dot" aria-hidden="true"></span>
+          <span class="annotated" data-ann="Full working rights in Australia. Ready to start Monday." data-tag="Se">Available immediately</span>
+        </span>
+      </div>
+    </header>
 
-<div class="section-title">Career History</div>
+    <!-- PROFESSIONAL SUMMARY -->
+    <section data-section="career">
+      <h2 class="section-header reveal">Professional Summary</h2>
+      <div class="summary-text reveal d1">
+        <span class="annotated" data-ann="Not a developer who read about mining. I've been underground. I know what a broken haul truck costs at 3am." data-tag="Se">Mining operations professional who built a second career in AI and analytics.</span> Eleven years running heavy industry operations across Russia's Caterpillar and Komatsu dealer networks: underground mining, fleet systems, <span class="annotated" data-ann="Not just managing budget. Rebuilding a regional business model during sanctions pressure. Every dollar was a strategic decision." data-tag="Te">$200M+ revenue management.</span> Now professionally delivering AI automation and workflow integration to client business processes using Claude Code, n8n, and Microsoft Power Platform. Maintains several personal <span class="annotated" data-ann="C-3PO runs my calendar, tracks my job pipeline, monitors my network, and writes my morning briefings. Not a demo. My actual operating system." data-tag="Te">AI agent architecture</span> systems to test and refine automation approaches. <span class="annotated" data-ann="Full working rights in Australia. Ready to start Monday." data-tag="Se">Available immediately</span> for senior AI, digital, consulting, or operational management roles in Perth where modern tools are part of the mandate.
+      </div>
+    </section>
 
-<div class="job">
-  <div class="job-header">
-    <div class="job-title">AI &amp; Automation Consultant</div>
-    <div class="job-date">November 2024 -- Present</div>
-  </div>
-  <div class="job-company">Self-Employed | Thailand / Perth, WA</div>
-  <ul>
-    <li>Delivering AI automation and workflow integration to client business processes using Claude Code, n8n, and Microsoft Power Platform.</li>
-    <li>Integrating AI solutions with enterprise ERP and CRM systems, including Dynamics 365 Sales Hub.</li>
-    <li>Building and maintaining personal AI productivity systems to test and advance automation approaches in live operational contexts.</li>
-  </ul>
-</div>
+    <!-- CORE COMPETENCIES -->
+    <section data-section="competencies">
+      <h2 class="section-header reveal">Core Competencies</h2>
+      <div class="competencies-grid">
+        <div class="competency-chip reveal d1">Industrial AI Strategy</div>
+        <div class="competency-chip reveal d2">AI Agent Development</div>
+        <div class="competency-chip reveal d3">Mining Operations (11yr)</div>
+        <div class="competency-chip reveal d4">Fleet &amp; MineStar Systems</div>
+        <div class="competency-chip reveal d1">Power BI &amp; Analytics</div>
+        <div class="competency-chip reveal d2">ERP/CRM Integration (D365)</div>
+        <div class="competency-chip reveal d3">P&amp;L Management ($200M+)</div>
+        <div class="competency-chip reveal d4">Team Leadership (286 staff)</div>
+      </div>
+    </section>
 
-<div class="job">
-  <div class="job-header">
-    <div class="job-title">Strategic Sales Support</div>
-    <div class="job-date">August 2025 -- November 2025</div>
-  </div>
-  <div class="job-company">Schlam Payload (Contract) | Perth, WA</div>
-  <ul>
-    <li>Engaged to deliver on two parallel objectives: international market development and internal sales operations transformation.</li>
-    <li>Conducted market expansion analysis for Central Asia and Africa using Parker Bay global fleet intelligence to identify target populations and size regional opportunity.</li>
-    <li>Developed AI-powered tender management system reducing full bid preparation from <strong>weeks to hours</strong>.</li>
-    <li>Built Power BI sales operations command centre integrated with Dynamics 365 Sales Hub, consolidating pipeline, market, and performance data.</li>
-  </ul>
-</div>
+    <!-- CAREER HISTORY -->
+    <section data-section="career">
+      <h2 class="section-header reveal">Career History</h2>
 
-<div class="job">
-  <div class="job-header">
-    <div class="job-title">Regional Director</div>
-    <div class="job-date">September 2021 -- July 2023</div>
-  </div>
-  <div class="job-company">Sumitomo Corporation Group (Authorized Komatsu Dealer) | St Petersburg, Russia</div>
-  <ul>
-    <li>Full P&amp;L accountability for <strong>$200M+ revenue</strong> across <strong>8 branches, 286 staff</strong>.</li>
-    <li>Improved operational margin from <strong>8% to 28%</strong> (20 percentage point increase).</li>
-    <li>Grew spare parts turnover by <strong>40%</strong> and field service sales by <strong>80%</strong>.</li>
-    <li>Led regional digital transformation; Power BI dashboards deployed across all branches.</li>
-  </ul>
-</div>
+      <div class="job-card reveal d1">
+        <div class="card-header">
+          <div class="job-title">AI &amp; Automation Consultant</div>
+          <div class="job-date">November 2024 -- Present</div>
+        </div>
+        <div class="job-company">Self-Employed | Thailand / Perth, WA</div>
+        <ul>
+          <li>Delivering AI automation and workflow integration to client business processes using Claude Code, n8n, and Microsoft Power Platform.</li>
+          <li>Integrating AI solutions with enterprise ERP and CRM systems, including Dynamics 365 Sales Hub.</li>
+          <li>Building and maintaining personal AI productivity systems to test and advance automation approaches in live operational contexts.</li>
+        </ul>
+      </div>
 
-<div class="job">
-  <div class="job-header">
-    <div class="job-title">Regional Manager / Regional Aftermarket Manager</div>
-    <div class="job-date">December 2016 -- August 2021</div>
-  </div>
-  <div class="job-company">Barloworld Limited (Authorized Caterpillar Dealer) | Magadan, Russia</div>
-  <ul>
-    <li>Led aftermarket operations across <strong>3 branches and 6 service points, 142 staff</strong>.</li>
-    <li>Grew annual operational profit from <strong>$2M to $6M+ USD</strong>.</li>
-    <li>Deployed the <strong>first CAT Driver Safety System (DSS) in Russia</strong>, generating $2M+ annual recurring revenue.</li>
-    <li>Implemented MineStar fleet management and Detect module for Kinross Gold.</li>
-    <li>Improved parts availability from <strong>56% to 86%</strong> (30 percentage point increase).</li>
-  </ul>
-</div>
+      <div class="job-card reveal d2">
+        <div class="card-header">
+          <div class="job-title">Strategic Sales Support</div>
+          <div class="job-date">August 2025 -- November 2025</div>
+        </div>
+        <div class="job-company">Schlam Payload (Contract) | Perth, WA</div>
+        <ul>
+          <li>Engaged to deliver on two parallel objectives: international market development and internal sales operations transformation.</li>
+          <li>Conducted market expansion analysis for Central Asia and Africa using Parker Bay global fleet intelligence to identify target populations and size regional opportunity.</li>
+          <li>Developed AI-powered tender management system reducing full bid preparation from <span class="annotated" data-ann="The old process: 3 people, 2 weeks, copy-paste from old bids. Now one person, same afternoon, better output." data-tag="Te">weeks to hours.</span></li>
+          <li>Built Power BI sales operations command centre integrated with Dynamics 365 Sales Hub, consolidating pipeline, market, and performance data.</li>
+        </ul>
+      </div>
 
-<div class="job">
-  <div class="job-header">
-    <div class="job-title">Central Warehouse Manager / Inventory Management Controller</div>
-    <div class="job-date">August 2012 -- November 2016</div>
-  </div>
-  <div class="job-company">Barloworld Limited (Authorized Caterpillar Dealer) | Novosibirsk, Russia</div>
-  <ul>
-    <li>Managed <strong>$32M+ USD inventory</strong> across 22 staff; achieved 5-star Caterpillar contamination control rating.</li>
-    <li>Key user for Microsoft Axapta ERP and Warehouse Management System (WMS) implementations.</li>
-  </ul>
-</div>
+      <div class="job-card reveal d3">
+        <div class="card-header">
+          <div class="job-title">Regional Director</div>
+          <div class="job-date">September 2021 -- July 2023</div>
+        </div>
+        <div class="job-company">Sumitomo Corporation Group (Authorized Komatsu Dealer) | St Petersburg, Russia</div>
+        <ul>
+          <li>Full P&amp;L accountability for <span class="annotated" data-ann="Not just managing budget. Rebuilding a regional business model during sanctions pressure. Every dollar was a strategic decision." data-tag="Te">$200M+ revenue</span> across 8 branches, 286 staff.</li>
+          <li>Improved operational margin from <span class="annotated" data-ann="Most people see a margin number. I see 286 people whose jobs depended on making that math work." data-tag="Fi">8% to 28%</span> (20 percentage point increase).</li>
+          <li>Grew spare parts turnover by 40% and field service sales by 80%.</li>
+          <li>Led regional digital transformation; Power BI dashboards deployed across all branches.</li>
+        </ul>
+      </div>
 
-<div style="font-size: 9pt; color: #666; margin-top: 4px; font-style: italic;">
-  November 2023 -- May 2025: Relocation from Russia via Thailand to Perth, Western Australia.
-</div>
+      <div class="job-card reveal d4">
+        <div class="card-header">
+          <div class="job-title">Regional Manager / Regional Aftermarket Manager</div>
+          <div class="job-date">December 2016 -- August 2021</div>
+        </div>
+        <div class="job-company">Barloworld Limited (Authorized Caterpillar Dealer) | Magadan, Russia</div>
+        <ul>
+          <li>Led aftermarket operations across 3 branches and 6 service points, 142 staff.</li>
+          <li>Grew annual operational profit from $2M to $6M+ USD.</li>
+          <li>Deployed the <span class="annotated" data-ann="Nobody had done this before. No playbook, no precedent. Built the business case, ran the pilot, scaled it to $2M ARR." data-tag="Ni">first CAT Driver Safety System (DSS) in Russia,</span> generating $2M+ annual recurring revenue.</li>
+          <li>Implemented MineStar fleet management and Detect module for Kinross Gold.</li>
+          <li>Improved parts availability from <span class="annotated" data-ann="In mining, a missing $40 seal can idle a $4M truck. This wasn't inventory management. It was production protection." data-tag="Ni">56% to 86%</span> (30 percentage point increase).</li>
+        </ul>
+      </div>
 
-<!-- ======================== PAGE 2 ======================== -->
-<div class="page-2-start"></div>
+      <div class="job-card reveal d5">
+        <div class="card-header">
+          <div class="job-title">Central Warehouse Manager / Inventory Management Controller</div>
+          <div class="job-date">August 2012 -- November 2016</div>
+        </div>
+        <div class="job-company">Barloworld Limited (Authorized Caterpillar Dealer) | Novosibirsk, Russia</div>
+        <ul>
+          <li>Managed $32M+ USD inventory across 22 staff; achieved 5-star Caterpillar contamination control rating.</li>
+          <li>Key user for Microsoft Axapta ERP and Warehouse Management System (WMS) implementations.</li>
+        </ul>
+      </div>
 
-<div class="section-title" style="margin-top:0;">Selected AI &amp; Analytics Projects</div>
+      <p class="relocation-note reveal">
+        November 2023 -- May 2025: Relocation from Russia via Thailand to Perth, Western Australia.
+      </p>
+    </section>
 
-<div class="project">
-  <div class="project-header">
-    <div class="project-name">Personal AI Executive Assistant</div>
-    <div class="project-meta">2026 | Personal build</div>
-  </div>
-  <p>Production AI assistant built in Claude Code with MCP integrations (Gmail, Calendar, Linear, GitHub, Telegram). Runs daily intelligence cycles: news digest, career pipeline tracking, opportunity scanning, and network monitoring. Demonstrates applied AI agent architecture in a real operational context, not a demo.</p>
-</div>
+    <!-- SELECTED PROJECTS -->
+    <section data-section="projects">
+      <h2 class="section-header reveal">Selected AI &amp; Analytics Projects</h2>
 
-<div class="project">
-  <div class="project-header">
-    <div class="project-name">AI-Powered Tender Management System</div>
-    <div class="project-meta">2025 | Schlam Payload (contract)</div>
-  </div>
-  <p>Reduced full bid preparation from weeks to hours for mining payload equipment tenders. Integrated with Dynamics 365 Sales Hub and Parker Bay global fleet data. Combined internal sales intelligence with Central Asia and Africa market expansion analysis.</p>
-</div>
+      <div class="project-card reveal d1">
+        <div class="card-header">
+          <div class="project-name">Personal AI Executive Assistant</div>
+          <div class="project-meta">2026 | Personal build</div>
+        </div>
+        <p>Production AI assistant built in Claude Code with MCP integrations (Gmail, Calendar, Linear, GitHub, Telegram). Runs daily intelligence cycles: news digest, career pipeline tracking, opportunity scanning, and network monitoring. Demonstrates applied <span class="annotated" data-ann="C-3PO runs my calendar, tracks my job pipeline, monitors my network, and writes my morning briefings. Not a demo. My actual operating system." data-tag="Te">AI agent architecture</span> in a real operational context, not a demo.</p>
+      </div>
 
-<div class="project">
-  <div class="project-header">
-    <div class="project-name">MinRes Supply Intelligence Platform</div>
-    <div class="project-meta">2026 | Portfolio deliverable</div>
-  </div>
-  <p>7-page Streamlit dashboard with 6 analytics engines: supply risk scoring, compliance monitoring, spend analytics, KPI tracking, and natural language querying. Built for a mining major procurement context. 29 automated tests, seed-based synthetic data.</p>
-</div>
+      <div class="project-card reveal d2">
+        <div class="card-header">
+          <div class="project-name">AI-Powered Tender Management System</div>
+          <div class="project-meta">2025 | Schlam Payload (contract)</div>
+        </div>
+        <p>Reduced full bid preparation from <span class="annotated" data-ann="The old process: 3 people, 2 weeks, copy-paste from old bids. Now one person, same afternoon, better output." data-tag="Te">weeks to hours</span> for mining payload equipment tenders. Integrated with Dynamics 365 Sales Hub and Parker Bay global fleet data. Combined internal sales intelligence with Central Asia and Africa market expansion analysis.</p>
+      </div>
 
-<div class="project">
-  <div class="project-header">
-    <div class="project-name">MineStar Intelligence Suite</div>
-    <div class="project-meta">2026 | Portfolio deliverable</div>
-  </div>
-  <p>Digital intelligence platform built around MineStar technology (Fleet, Detect, Health, Command) and other variable OEM tools. React 19 application with command center, pulse monitoring, and value architecture visualizer. Designed as a cross-OEM analytical layer aggregating data from disparate mining digital platforms.</p>
-</div>
+      <div class="project-card reveal d3">
+        <div class="card-header">
+          <div class="project-name">MinRes Supply Intelligence Platform</div>
+          <div class="project-meta">2026 | Portfolio deliverable</div>
+        </div>
+        <p>7-page Streamlit dashboard with 6 analytics engines: supply risk scoring, compliance monitoring, spend analytics, KPI tracking, and natural language querying. Built for a mining major procurement context. 29 automated tests, seed-based synthetic data.</p>
+      </div>
 
-<div class="section-title">Education</div>
-<div class="edu-row">
-  <div>
-    <div class="edu-degree">Master's Degree, Industrial Electronics</div>
-    <div class="edu-school">Novosibirsk State Technical University (NSTU)</div>
-  </div>
-  <div class="edu-date">2004 -- 2010</div>
-</div>
+      <div class="project-card reveal d4">
+        <div class="card-header">
+          <div class="project-name">MineStar Intelligence Suite</div>
+          <div class="project-meta">2026 | Portfolio deliverable</div>
+        </div>
+        <p>Digital intelligence platform built around MineStar technology (Fleet, Detect, Health, Command) and other variable OEM tools. React 19 application with command center, pulse monitoring, and value architecture visualizer. Designed as a cross-OEM analytical layer aggregating data from disparate mining digital platforms.</p>
+      </div>
+    </section>
 
-<div class="section-title">Certifications</div>
-<div class="certs-grid">
-  <div class="cert-item">AI Agents Fundamentals</div>
-  <div class="cert-item">Microsoft Power Platform</div>
-  <div class="cert-item">Microsoft Data Analytics</div>
-  <div class="cert-item">MineStar Systems (Caterpillar)</div>
-  <div class="cert-item">Leading with Emotional Intelligence</div>
-  <div class="cert-item">Strategic Business Analysis Essentials</div>
-  <div class="cert-item">Inventory Management</div>
-  <div class="cert-item">Caterpillar Parts Operations &amp; Contamination Control</div>
-</div>
+    <!-- EDUCATION -->
+    <section data-section="education">
+      <h2 class="section-header reveal">Education</h2>
+      <div class="edu-block reveal d1">
+        <div class="edu-header">
+          <div>
+            <div class="edu-degree">Master's Degree, Industrial Electronics</div>
+            <div class="edu-school">Novosibirsk State Technical University (NSTU)</div>
+          </div>
+          <div class="edu-date">2004 -- 2010</div>
+        </div>
+      </div>
+    </section>
 
-<div class="section-title">Additional Information</div>
-<div class="additional-row">
-  <span><strong>Languages:</strong> English (professional working proficiency), Russian (native)</span>
-  <span><strong>Work rights:</strong> Full working rights in Australia</span>
-  <span><strong>Location:</strong> Perth, WA</span>
-</div>
+    <!-- CERTIFICATIONS -->
+    <section data-section="certifications">
+      <h2 class="section-header reveal">Certifications</h2>
+      <div class="certs-grid">
+        <div class="cert-item reveal d1">AI Agents Fundamentals</div>
+        <div class="cert-item reveal d2">Microsoft Power Platform</div>
+        <div class="cert-item reveal d3">Microsoft Data Analytics</div>
+        <div class="cert-item reveal d4">MineStar Systems (Caterpillar)</div>
+        <div class="cert-item reveal d1">Leading with Emotional Intelligence</div>
+        <div class="cert-item reveal d2">Strategic Business Analysis Essentials</div>
+        <div class="cert-item reveal d3">Inventory Management</div>
+        <div class="cert-item reveal d4">Caterpillar Parts Operations &amp; Contamination Control</div>
+      </div>
+    </section>
 
+    <!-- ADDITIONAL INFORMATION -->
+    <section data-section="additional">
+      <h2 class="section-header reveal">Additional Information</h2>
+      <div class="additional-grid">
+        <div class="additional-item reveal d1">
+          <strong>Languages</strong>
+          <span>English (professional working proficiency), Russian (native)</span>
+        </div>
+        <div class="additional-item reveal d2">
+          <strong>Work rights</strong>
+          <span>Full working rights in Australia</span>
+        </div>
+        <div class="additional-item reveal d3">
+          <strong>Location</strong>
+          <span>Perth, WA</span>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-wrapper -->
+
+  <script>
+  (function() {
+    'use strict';
+
+    // ============================================================
+    // REDUCED MOTION
+    // ============================================================
+    var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ============================================================
+    // CURSOR GLOW + SECTION-AWARE COLOR
+    // ============================================================
+    if (!rm) {
+      var root = document.documentElement;
+      var sections = document.querySelectorAll('section[data-section]');
+
+      var glowMap = {
+        career:        'rgba(244,168,37,0.08)',
+        projects:      'rgba(59,130,246,0.08)',
+        competencies:  'rgba(16,185,129,0.07)',
+        education:     'rgba(167,139,250,0.06)',
+        certifications:'rgba(244,168,37,0.06)',
+        additional:    'rgba(244,168,37,0.05)',
+      };
+
+      function sectionAt(clientY) {
+        var cur = 'career';
+        sections.forEach(function(s) {
+          if (s.getBoundingClientRect().top <= clientY + 200) cur = s.dataset.section;
+        });
+        return cur;
+      }
+
+      var rafPending = false, pendX = 0, pendY = 0;
+      document.addEventListener('mousemove', function(e) {
+        pendX = e.clientX; pendY = e.clientY;
+        if (!rafPending) {
+          rafPending = true;
+          requestAnimationFrame(function() {
+            root.style.setProperty('--mx', pendX + 'px');
+            root.style.setProperty('--my', pendY + 'px');
+            root.style.setProperty('--glow-color', glowMap[sectionAt(pendY)] || 'rgba(244,168,37,0.07)');
+            rafPending = false;
+          });
+        }
+      }, { passive: true });
+    }
+
+    // ============================================================
+    // SCROLL REVEAL
+    // ============================================================
+    var revEls = document.querySelectorAll('.reveal');
+
+    if (!rm) {
+      var revObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+      revEls.forEach(function(el) { revObs.observe(el); });
+    } else {
+      revEls.forEach(function(el) { el.classList.add('visible'); });
+    }
+
+    // ============================================================
+    // ANNOTATION SYSTEM
+    // ============================================================
+    var tip     = document.getElementById('ann-tip');
+    var tipTag  = document.getElementById('ann-tag');
+    var tipBody = document.getElementById('ann-body');
+    var annEls  = document.querySelectorAll('.annotated');
+    var curEl   = null;
+    var hideTm  = null;
+
+    var TAG_LABELS = {
+      Te: 'Te -- External Logic',
+      Ni: 'Ni -- Pattern Vision',
+      Se: 'Se -- Present Reality',
+      Fi: 'Fi -- Values Anchor',
+    };
+
+    function positionTip(el) {
+      var r   = el.getBoundingClientRect();
+      var vw  = window.innerWidth;
+      var vh  = window.innerHeight;
+      var mg  = 10;
+      var tw  = Math.min(320, vw - 2 * mg);
+      var th  = tip.offsetHeight || 110;
+
+      var left = r.left;
+      var top  = r.bottom + mg;
+
+      if (left + tw > vw - mg) left = vw - tw - mg;
+      if (left < mg) left = mg;
+      if (top + th > vh - mg) { top = r.top - th - mg; if (top < mg) top = mg; }
+
+      tip.style.left     = left + 'px';
+      tip.style.top      = top  + 'px';
+      tip.style.maxWidth = tw   + 'px';
+    }
+
+    function showAnn(el) {
+      clearTimeout(hideTm);
+      if (curEl && curEl !== el) curEl.classList.remove('ann-active');
+      curEl = el;
+      el.classList.add('ann-active');
+      tipTag.textContent  = TAG_LABELS[el.dataset.tag] || el.dataset.tag;
+      tipTag.className    = 'ann-tag tag-' + (el.dataset.tag || '');
+      tipBody.textContent = el.dataset.ann;
+      tip.classList.add('ann-show');
+      requestAnimationFrame(function() { positionTip(el); });
+    }
+
+    function hideAnn(delay) {
+      clearTimeout(hideTm);
+      hideTm = setTimeout(function() {
+        tip.classList.remove('ann-show');
+        if (curEl) { curEl.classList.remove('ann-active'); curEl = null; }
+      }, delay === undefined ? 120 : delay);
+    }
+
+    // Desktop hover
+    annEls.forEach(function(el) {
+      el.addEventListener('mouseenter', function() { showAnn(el); });
+      el.addEventListener('mouseleave', function() { hideAnn(); });
+    });
+
+    // Mobile tap
+    if ('ontouchstart' in window) {
+      annEls.forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (curEl === el && tip.classList.contains('ann-show')) hideAnn(0);
+          else showAnn(el);
+        });
+      });
+      document.addEventListener('click', function() { hideAnn(0); });
+    }
+
+    // Reposition on scroll/resize
+    window.addEventListener('scroll', function() {
+      if (curEl && tip.classList.contains('ann-show')) positionTip(curEl);
+    }, { passive: true });
+
+    var rszTm;
+    window.addEventListener('resize', function() {
+      clearTimeout(rszTm);
+      rszTm = setTimeout(function() {
+        if (curEl && tip.classList.contains('ann-show')) positionTip(curEl);
+      }, 120);
+    }, { passive: true });
+
+    // ============================================================
+    // 3D CARD TILT
+    // ============================================================
+    if (!rm) {
+      var MAX_TILT = 3.5;
+      document.querySelectorAll('.job-card, .project-card').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var r  = card.getBoundingClientRect();
+          var dx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
+          var dy = ((e.clientY - r.top)  / r.height - 0.5) * 2;
+          card.style.transform = 'perspective(900px) rotateY(' + (dx * MAX_TILT) + 'deg) rotateX(' + (-dy * MAX_TILT) + 'deg) translateZ(6px)';
+        });
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = '';
+        });
+      });
+    }
+
+    // ============================================================
+    // TYPING EFFECT (section headers)
+    // ============================================================
+    if (!rm) {
+      var headers = document.querySelectorAll('.section-header');
+      var typedSet = new Set();
+
+      headers.forEach(function(h) {
+        h.dataset.full = h.textContent.trim();
+        h.textContent  = '';
+        var cur = document.createElement('span');
+        cur.className  = 'typing-cursor';
+        h.appendChild(cur);
+      });
+
+      var typObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !typedSet.has(entry.target)) {
+            typedSet.add(entry.target);
+            typObs.unobserve(entry.target);
+            typeIn(entry.target);
+          }
+        });
+      }, { threshold: 0.6 });
+
+      headers.forEach(function(h) { typObs.observe(h); });
+
+      function typeIn(el) {
+        var text = el.dataset.full;
+        var cur  = el.querySelector('.typing-cursor');
+        var i = 0;
+        var iv = setInterval(function() {
+          if (i < text.length) {
+            el.insertBefore(document.createTextNode(text[i++]), cur);
+          } else {
+            clearInterval(iv);
+            setTimeout(function() { cur.style.animation = 'none'; cur.style.opacity = '0'; }, 2800);
+          }
+        }, 40);
+      }
+    }
+
+    // ============================================================
+    // PARTICLE FLOW FIELD
+    // ============================================================
+    if (!rm) {
+      var canvas = document.getElementById('particle-canvas');
+      var ctx    = canvas.getContext('2d');
+      var mobile = window.innerWidth < 768;
+      var COUNT  = mobile ? 28 : 75;
+      var FPS    = 30;
+      var FMSEC  = 1000 / FPS;
+      var W, H, parts, lastT = 0, tick = 0, mx = -1000, my = -1000;
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+
+      function Particle() { this.init(true); }
+
+      Particle.prototype.init = function(scatter) {
+        this.x   = scatter ? Math.random() * (W || 800) : (Math.random() < 0.5 ? -4 : (W || 800) + 4);
+        this.y   = Math.random() * (H || 600);
+        this.vx  = 0;
+        this.vy  = 0;
+        this.r   = Math.random() * 1.3 + 0.4;
+        this.alp = Math.random() * 0.09 + 0.04;
+        this.spd = Math.random() * 0.35 + 0.12;
+      };
+
+      Particle.prototype.step = function() {
+        var sc  = 0.0022, t = tick * 0.00035;
+        var ang = (Math.sin(this.x * sc + t) + Math.cos(this.y * sc + t * 0.7)) * Math.PI;
+        this.vx += Math.cos(ang) * this.spd * 0.06;
+        this.vy += Math.sin(ang) * this.spd * 0.06;
+
+        var dx = this.x - mx, dy = this.y - my;
+        var d2 = dx * dx + dy * dy;
+        if (d2 < 8100 && d2 > 1) {
+          var d = Math.sqrt(d2);
+          var f = (90 - d) / 90 * 1.6;
+          if (f > 0) { this.vx += dx / d * f; this.vy += dy / d * f; }
+        }
+
+        this.vx *= 0.94; this.vy *= 0.94;
+        this.x  += this.vx; this.y += this.vy;
+
+        if (this.x < -8) this.x = W + 8; else if (this.x > W + 8) this.x = -8;
+        if (this.y < -8) this.y = H + 8; else if (this.y > H + 8) this.y = -8;
+      };
+
+      Particle.prototype.draw = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(244,168,37,' + this.alp + ')';
+        ctx.fill();
+      };
+
+      function initParts() {
+        parts = [];
+        for (var i = 0; i < COUNT; i++) parts.push(new Particle());
+      }
+
+      document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+      function loop(ts) {
+        requestAnimationFrame(loop);
+        if (ts - lastT < FMSEC) return;
+        lastT = ts; tick++;
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < parts.length; i++) { parts[i].step(); parts[i].draw(); }
+      }
+
+      var pRszTm;
+      window.addEventListener('resize', function() {
+        clearTimeout(pRszTm);
+        pRszTm = setTimeout(function() { resize(); initParts(); }, 250);
+      }, { passive: true });
+
+      resize();
+      initParts();
+      requestAnimationFrame(loop);
+    }
+
+  })();
+  </script>
 </body>
 </html>
