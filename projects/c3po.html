@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AI Executive Assistant -- Vladimir Vorotilov Portfolio</title>
+<meta name="description" content="C-3PO: A Claude Code-native AI executive assistant with 9-phase daily heartbeat, 12 skills, and 8 MCP integrations. Built by Vladimir Vorotilov.">
+<meta property="og:title" content="AI Executive Assistant -- Vladimir Vorotilov">
+<meta property="og:description" content="Production AI assistant: 9-phase daily heartbeat, 12 skills, 5 daily intelligence tasks, 8 MCP integrations. My actual operating system.">
+<meta property="og:url" content="https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-base:#0a0e17; --bg-panel:#111827;
+  --accent-amber:#f4a825; --accent-amber-dim:rgba(244,168,37,0.10);
+  --accent-blue:#3b82f6; --accent-blue-dim:rgba(59,130,246,0.10);
+  --accent-green:#10b981; --accent-green-dim:rgba(16,185,129,0.10);
+  --accent-purple:#a78bfa; --accent-purple-dim:rgba(167,139,250,0.10);
+  --accent-cyan:#22d3ee; --accent-cyan-dim:rgba(34,211,238,0.10);
+  --text-primary:#e2e8f0; --text-secondary:#94a3b8; --text-tertiary:#64748b;
+  --font-sans:'Inter',-apple-system,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono','Fira Code',monospace;
+  --border:#1e293b; --border-hover:#334155; --radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg-base);color:var(--text-primary);font-family:var(--font-sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 80% 0%,rgba(251,191,36,0.10) 0%,transparent 50%),radial-gradient(ellipse at 20% 100%,rgba(59,130,246,0.07) 0%,transparent 50%);
+  background-attachment:fixed}
+h1{font-size:clamp(26px,5vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.15}
+h2{font-size:clamp(20px,3vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.2}
+p{color:var(--text-secondary)}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:4px}
+
+.container{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+@media(max-width:480px){section{padding:48px 0}}
+
+.eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-amber);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:'';display:inline-block;width:20px;height:2px;background:var(--accent-amber);border-radius:2px}
+
+/* HERO */
+#s-hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:60px 0 40px}
+.hero-inner{display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+.brand-mark{width:52px;height:52px;background:linear-gradient(135deg,var(--accent-amber),#b45309);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;box-shadow:0 4px 20px rgba(217,119,6,0.35);flex-shrink:0;font-family:var(--font-mono)}
+.pulse-dot{width:10px;height:10px;border-radius:50%;background:var(--accent-amber);animation:pulse-ring 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(217,119,6,0.5)}50%{box-shadow:0 0 0 8px rgba(217,119,6,0)}100%{box-shadow:0 0 0 0 rgba(217,119,6,0)}}
+.hero-live{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--accent-amber);text-transform:uppercase}
+.hero-subtitle{font-size:clamp(15px,2.5vw,19px);color:var(--text-secondary);max-width:580px;line-height:1.5}
+.hero-tagline{display:flex;align-items:center;gap:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:10px 16px;width:fit-content;max-width:100%}
+.tagline-text{font-family:var(--font-mono);font-size:13px;color:var(--text-primary);min-height:20px;min-width:10px}
+.tagline-cursor{display:inline-block;width:2px;height:16px;background:var(--accent-amber);animation:blink .8s step-end infinite;vertical-align:text-bottom;margin-left:1px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.scroll-hint{display:flex;align-items:center;gap:8px;color:var(--text-tertiary);font-size:12px;margin-top:8px;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* NUMBERS BAR */
+#s-numbers{padding:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(17,24,39,0.8);backdrop-filter:blur(8px)}
+.numbers-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+@media(min-width:500px){.numbers-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.numbers-grid{grid-template-columns:repeat(5,1fr)}}
+.num-item{padding:20px 18px;border-right:1px solid var(--border)}
+.num-item:last-child{border-right:none}
+@media(max-width:499px){
+  .num-item:nth-child(2n){border-right:none}
+  .num-item:nth-child(-n+4){border-bottom:1px solid var(--border)}
+}
+@media(min-width:500px) and (max-width:767px){
+  .num-item:nth-child(3n){border-right:none}
+  .num-item:nth-child(-n+3){border-bottom:1px solid var(--border)}
+}
+.num-val{font-family:var(--font-mono);font-size:28px;font-weight:700;line-height:1;color:var(--accent-amber)}
+.num-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-secondary);margin-top:4px}
+.num-sub{font-size:10px;color:var(--text-tertiary);font-family:var(--font-mono);margin-top:2px}
+
+/* HEARTBEAT */
+.hb-controls{display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.hb-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-panel);color:var(--text-secondary);font-size:12px;font-weight:600;font-family:var(--font-mono);cursor:pointer;transition:all .15s;min-height:44px}
+.hb-btn:hover{border-color:var(--border-hover);color:var(--text-primary)}
+.hb-btn.playing{background:var(--accent-amber-dim);border-color:rgba(217,119,6,0.3);color:var(--accent-amber)}
+.hb-phase-tag{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary)}
+.hb-scroll{overflow-x:auto;margin:0 -20px;padding:4px 20px 16px;-webkit-overflow-scrolling:touch}
+.hb-diagram{display:flex;align-items:flex-start;min-width:720px}
+.hb-phase{display:flex;flex-direction:column;align-items:center;flex:1;gap:8px;cursor:pointer;padding:0 2px;min-width:0}
+.hb-node{width:50px;height:50px;border-radius:50%;border:2px solid var(--border);background:var(--bg-panel);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--text-tertiary);transition:all .3s ease;position:relative;z-index:1;flex-shrink:0}
+.hb-phase.active .hb-node{border-color:var(--accent-amber);background:var(--accent-amber-dim);color:var(--accent-amber);animation:hb-pulse 1.5s ease-in-out infinite}
+@keyframes hb-pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,119,6,0.4)}50%{box-shadow:0 0 0 8px rgba(217,119,6,0)}}
+.hb-label{font-size:9px;font-weight:600;text-align:center;color:var(--text-tertiary);line-height:1.3;max-width:64px;transition:color .3s}
+.hb-phase.active .hb-label{color:var(--accent-amber)}
+.hb-conn{flex:1;height:2px;border-top:2px dashed rgba(255,255,255,0.08);margin-top:24px;position:relative;overflow:hidden;min-width:8px}
+.hb-travel{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent-amber);top:-4px;left:-6px;opacity:0}
+.hb-travel.go{animation:travel 3s linear}
+@keyframes travel{0%{left:-6px;opacity:1}100%{left:calc(100% + 6px);opacity:1}}
+.hb-detail{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-top:20px}
+.hb-detail-title{font-family:var(--font-mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-amber);margin-bottom:6px}
+.hb-detail-desc{font-size:14px;color:var(--text-secondary);line-height:1.6}
+
+/* FEATURE CARDS */
+.features-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.features-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.features-grid{grid-template-columns:repeat(3,1fr)}}
+.fc{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.fc:hover{border-color:var(--border-hover);box-shadow:0 4px 16px rgba(0,0,0,0.35)}
+.fc.open{border-color:rgba(217,119,6,0.3)}
+.fc-hdr{display:flex;align-items:center;gap:14px;padding:16px 18px;user-select:none;min-height:44px}
+.fc-icon{font-size:22px;flex-shrink:0;width:32px;text-align:center}
+.fc-titles{flex:1}
+.fc-title{font-size:14px;font-weight:600;color:var(--text-primary)}
+.fc-one{font-size:11px;color:var(--text-tertiary);margin-top:1px}
+.fc-chev{color:var(--text-tertiary);transition:transform .25s;flex-shrink:0;font-size:18px;line-height:1}
+.fc.open .fc-chev{transform:rotate(180deg)}
+.fc-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease}
+.fc.open .fc-wrap{grid-template-rows:1fr}
+.fc-inner{overflow:hidden}
+.fc-body{padding:0 18px 18px;display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--border);padding-top:14px}
+.fc-tech{font-size:13px;color:var(--text-secondary);line-height:1.6}
+.fc-biz{background:var(--accent-purple-dim);border:1px solid rgba(124,58,237,0.15);border-radius:8px;padding:10px 14px}
+.fc-biz-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-purple);margin-bottom:4px;font-family:var(--font-mono)}
+.fc-biz-txt{font-size:12px;color:var(--text-secondary);line-height:1.5}
+
+/* SKILLS CAROUSEL */
+.skills-scroll{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;display:flex;gap:10px;padding:4px 20px 16px;margin:0 -20px;scrollbar-width:thin}
+.sk{flex-shrink:0;width:176px;scroll-snap-align:start;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:8px}
+.sk:hover{border-color:var(--border-hover);box-shadow:0 4px 16px rgba(0,0,0,0.35);transform:translateY(-2px)}
+.sk-icon{font-size:24px}
+.sk-name{font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.3}
+.sk-desc{font-size:11px;color:var(--text-secondary);line-height:1.4;flex:1}
+.sk-trigger{font-size:10px;font-family:var(--font-mono);color:var(--text-tertiary);background:rgba(255,255,255,0.04);padding:3px 7px;border-radius:4px;display:inline-block}
+.skills-hint{color:var(--text-tertiary);font-size:12px;margin-top:8px;padding-left:20px}
+
+/* BOTTOM SHEET */
+#sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:900;opacity:0;pointer-events:none;transition:opacity .25s}
+#sheet-overlay.open{opacity:1;pointer-events:all}
+#skill-sheet{position:fixed;bottom:0;left:0;right:0;background:var(--bg-base);border-radius:20px 20px 0 0;border-top:1px solid var(--border);box-shadow:0 -8px 40px rgba(0,0,0,0.5);z-index:1000;max-height:70vh;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+#skill-sheet.open{transform:translateY(0)}
+.sheet-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.sheet-hdr{padding:14px 20px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sheet-ttl{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px}
+.sheet-close{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--font-mono);min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center}
+.sheet-close:hover{border-color:var(--border-hover);color:var(--text-primary)}
+.sheet-body{padding:16px 20px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:14px}
+.sheet-slbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-tertiary);font-family:var(--font-mono);margin-bottom:6px}
+.sheet-trig{background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:13px;color:var(--accent-amber)}
+.sheet-desc{font-size:14px;color:var(--text-secondary);line-height:1.6}
+.sheet-rows{display:flex;flex-direction:column;gap:8px}
+.sheet-row{display:flex;gap:12px;align-items:flex-start}
+.sheet-key{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:.06em;min-width:52px;padding-top:2px;flex-shrink:0}
+.sheet-val{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.skill-panel{display:none}
+.skill-panel.active{display:flex;flex-direction:column;gap:14px}
+
+/* PRINCIPLES */
+.principles-list{display:flex;flex-direction:column;gap:10px;max-width:720px}
+.pr{display:flex;align-items:flex-start;gap:16px;padding:14px 18px;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s}
+.pr:hover{border-color:var(--border-hover)}
+.pr-num{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--accent-amber);min-width:24px;padding-top:1px;flex-shrink:0}
+.pr-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:3px}
+.pr-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
+
+/* ARCH DIAGRAM */
+.arch-diagram{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-width:900px}
+.arch-layer{display:flex;gap:20px;align-items:flex-start;padding:18px 20px;border-bottom:1px solid var(--border)}
+.arch-layer:last-child{border-bottom:none}
+.arch-amber{background:linear-gradient(100deg,rgba(217,119,6,0.07) 0%,transparent 55%);border-left:3px solid var(--accent-amber)}
+.arch-blue{background:linear-gradient(100deg,rgba(37,99,235,0.07) 0%,transparent 55%);border-left:3px solid var(--accent-blue)}
+.arch-green{background:linear-gradient(100deg,rgba(5,150,105,0.07) 0%,transparent 55%);border-left:3px solid var(--accent-green)}
+.arch-layer-meta{display:flex;flex-direction:column;gap:3px;width:128px;flex-shrink:0;padding-top:2px}
+.arch-lnum{font-family:var(--font-mono);font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.12em;display:inline-block;margin-bottom:3px;width:fit-content}
+.arch-lnum--amber{background:var(--accent-amber-dim);color:var(--accent-amber)}
+.arch-lnum--blue{background:var(--accent-blue-dim);color:var(--accent-blue)}
+.arch-lnum--green{background:var(--accent-green-dim);color:var(--accent-green)}
+.arch-lname{font-size:12px;font-weight:700;color:var(--text-primary);line-height:1.2}
+.arch-lsub{font-size:9px;color:var(--text-tertiary);font-family:var(--font-mono);line-height:1.4;margin-top:2px}
+.arch-blocks{display:flex;flex-wrap:wrap;gap:7px;flex:1}
+.arch-block{background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:9px 11px;display:flex;flex-direction:column;gap:2px;flex:1 1 150px;min-width:140px;max-width:220px}
+.arch-type{font-family:var(--font-mono);font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);padding-bottom:5px;border-bottom:1px dashed var(--border);margin-bottom:4px}
+.arch-bname{font-size:12px;font-weight:600;color:var(--text-primary);font-family:var(--font-mono);line-height:1.3}
+.arch-binfo{font-size:10px;color:var(--text-secondary);line-height:1.4;margin-top:3px}
+.arch-conn{display:flex;align-items:center;justify-content:center;gap:20px;padding:6px 20px;background:rgba(255,255,255,0.015);border-top:1px dashed var(--border);border-bottom:1px dashed var(--border)}
+.arch-conn-label{font-family:var(--font-mono);font-size:9px;letter-spacing:.06em}
+.arch-conn-up{color:var(--accent-amber)}
+.arch-conn-dn{color:var(--accent-green)}
+.arch-conn-div{color:var(--text-tertiary);opacity:0.4}
+@media(max-width:640px){.arch-layer{flex-direction:column;gap:12px}.arch-layer-meta{width:auto}.arch-block{flex:1 1 calc(50% - 4px);max-width:none}}
+@media(max-width:380px){.arch-block{flex:1 1 100%;max-width:none}}
+
+/* COMMAND CENTER SCHEMA */
+.cc-schema{display:flex;align-items:center;gap:0;max-width:900px;margin-bottom:20px}
+.cc-node{display:flex;flex-direction:column;align-items:center;gap:5px;padding:16px 12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);width:104px;text-align:center;flex-shrink:0}
+.cc-node-icon{font-size:26px}
+.cc-node-name{font-size:12px;font-weight:700;color:var(--text-primary)}
+.cc-node-sub{font-size:9px;color:var(--text-tertiary);font-family:var(--font-mono);line-height:1.3}
+.cc-conn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 2px;min-width:40px}
+.cc-conn-line{width:100%;height:1px;background:linear-gradient(to right,var(--border),var(--border-hover),var(--border))}
+.cc-conn-label{font-family:var(--font-mono);font-size:8px;color:var(--text-tertiary);letter-spacing:.06em;white-space:nowrap}
+.cc-hub{flex:1;max-width:460px;background:var(--bg-panel);border:1px solid rgba(217,119,6,0.35);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 2px 20px rgba(217,119,6,0.07)}
+.cc-hub-badge{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-amber);display:flex;align-items:center;gap:7px}
+.cc-hub-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent-amber);animation:pulse-ring 2s ease-in-out infinite;flex-shrink:0}
+.cc-hub-name{font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--text-primary)}
+.cc-hub-desc{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.cc-panels{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.cc-panel-chip{font-family:var(--font-mono);font-size:9px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;padding:3px 8px;color:var(--text-secondary)}
+.cc-rebuild{max-width:900px;display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:rgba(255,255,255,0.02);border:1px dashed var(--border);border-radius:var(--radius)}
+.cc-rebuild-lbl{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);white-space:nowrap;padding-top:4px;flex-shrink:0}
+.cc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cc-chip{font-size:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:20px;padding:3px 10px;color:var(--text-secondary);font-family:var(--font-mono)}
+.cc-chip.primary{border-color:rgba(217,119,6,0.3);color:var(--accent-amber);background:var(--accent-amber-dim)}
+@media(max-width:600px){
+  .cc-schema{flex-direction:column;gap:0}
+  .cc-conn{flex-direction:row;width:100%;padding:6px 0}
+  .cc-conn-line{flex:1;height:1px}
+  .cc-hub{max-width:100%;width:100%}
+  .cc-node{width:100%;flex-direction:row;text-align:left;justify-content:flex-start;gap:12px}
+}
+
+/* FOOTER */
+.page-footer{text-align:center;padding:32px 0 40px;font-family:var(--font-mono);font-size:12px;color:var(--accent-amber)}
+</style>
+</head>
+<body>
+
+<!-- BACK NAV -->
+<div style="position:relative;z-index:10;padding:20px 20px 0;max-width:1080px;margin:0 auto">
+  <a href="../portfolio.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:0.75rem;color:#64748b;text-decoration:none;letter-spacing:.05em;transition:color .2s" onmouseenter="this.style.color='#f4a825'" onmouseleave="this.style.color='#64748b'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2.5L3.5 7l5 4.5"/></svg>
+    Back to Portfolio
+  </a>
+</div>
+
+<!-- HERO -->
+<section id="s-hero">
+<div class="container">
+<div class="hero-inner">
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="brand-mark">C</div>
+    <div class="hero-live"><div class="pulse-dot"></div>Live System</div>
+  </div>
+  <h1>C-3PO: A Claude Code-Native<br><span style="color:var(--accent-amber)">Executive Assistant</span></h1>
+  <p class="hero-subtitle">What happens when you treat an LLM as infrastructure, not a chatbot.</p>
+  <div class="hero-tagline">
+    <span style="font-size:16px">🤖</span>
+    <span class="tagline-text" id="tagline-text"></span><span class="tagline-cursor"></span>
+  </div>
+  <div class="scroll-hint"><span>↓</span><span>Scroll to explore the architecture</span></div>
+</div>
+</div>
+</section>
+
+<!-- ARCHITECTURE LAYERS -->
+<section id="s-layers">
+<div class="container">
+  <div class="eyebrow">Architecture</div>
+  <h2 style="margin-bottom:8px">3-Layer State Model</h2>
+  <p style="margin-bottom:28px;max-width:560px">How C-3PO maintains continuity across sessions, within sessions, and at runtime — using only files, JSON, and the LLM context window.</p>
+  <div class="arch-diagram">
+
+    <!-- L1 -->
+    <div class="arch-layer arch-amber">
+      <div class="arch-layer-meta">
+        <span class="arch-lnum arch-lnum--amber">L1</span>
+        <div class="arch-lname">Persistent Memory</div>
+        <div class="arch-lsub">Disk · Human-readable · Cross-session</div>
+      </div>
+      <div class="arch-blocks">
+        <div class="arch-block">
+          <div class="arch-type">FILE ×6</div>
+          <div class="arch-bname">context/*.md</div>
+          <div class="arch-binfo">identity · work · team · priorities · goals · voice</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">FILE · append-only</div>
+          <div class="arch-bname">learned-rules.md</div>
+          <div class="arch-binfo">14 behavioral corrections · captured in real time</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">FILE · append-only</div>
+          <div class="arch-bname">decisions/log.md</div>
+          <div class="arch-binfo">timestamped entries · never deleted · strategic choices</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">DIR</div>
+          <div class="arch-bname">knowledge/</div>
+          <div class="arch-binfo">eureka/ · digests/ · research/ · meeting-prep/</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">INDEX · auto-load</div>
+          <div class="arch-bname">MEMORY.md</div>
+          <div class="arch-binfo">.claude/projects/…/memory/ · indexed · loaded each session</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connector 1→2 -->
+    <div class="arch-conn">
+      <span class="arch-conn-label arch-conn-up">↑ reads from</span>
+      <span class="arch-conn-div">|</span>
+      <span class="arch-conn-label arch-conn-dn">↓ persists to</span>
+    </div>
+
+    <!-- L2 -->
+    <div class="arch-layer arch-blue">
+      <div class="arch-layer-meta">
+        <span class="arch-lnum arch-lnum--blue">L2</span>
+        <div class="arch-lname">Session State</div>
+        <div class="arch-lsub">REPL · Ephemeral · Selectively persisted</div>
+      </div>
+      <div class="arch-blocks">
+        <div class="arch-block">
+          <div class="arch-type">BUFFER</div>
+          <div class="arch-bname">Context Window</div>
+          <div class="arch-binfo">~200K tokens · conversation + loaded rules + skills</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">TOOL · session-scoped</div>
+          <div class="arch-bname">Tasks + Plans</div>
+          <div class="arch-binfo">TaskCreate / TaskUpdate · structured in-session tracking</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">JSON · disk-persisted</div>
+          <div class="arch-bname">Loop State</div>
+          <div class="arch-binfo">automations/state/*.json · task-machine · daily_tasks</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">AUTH · in-memory</div>
+          <div class="arch-bname">MCP Session Tokens</div>
+          <div class="arch-binfo">Gmail · Calendar · Linear · GitHub · Telegram</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connector 2→3 -->
+    <div class="arch-conn">
+      <span class="arch-conn-label arch-conn-dn">↓ instructs</span>
+      <span class="arch-conn-div">|</span>
+      <span class="arch-conn-label arch-conn-up">↑ reports back</span>
+    </div>
+
+    <!-- L3 -->
+    <div class="arch-layer arch-green">
+      <div class="arch-layer-meta">
+        <span class="arch-lnum arch-lnum--green">L3</span>
+        <div class="arch-lname">Active Runtime</div>
+        <div class="arch-lsub">Execution · Stateless · Output producers</div>
+      </div>
+      <div class="arch-blocks">
+        <div class="arch-block">
+          <div class="arch-type">CRON · self-renewing</div>
+          <div class="arch-bname">Heartbeat Loop</div>
+          <div class="arch-binfo">9 phases · 2h interval · CronCreate · session-scoped</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">MARKDOWN · 12 files</div>
+          <div class="arch-bname">Skills</div>
+          <div class="arch-binfo">Contracts invoked by trigger phrase or autonomously</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">CRON · time-gated</div>
+          <div class="arch-bname">Daily Tasks ×5</div>
+          <div class="arch-binfo">morning-digest · career-pulse · opportunity-scanner · network-pulse · calendar-intel</div>
+        </div>
+        <div class="arch-block">
+          <div class="arch-type">API · 10+ servers</div>
+          <div class="arch-bname">MCP Integrations</div>
+          <div class="arch-binfo">Gmail · Calendar · Linear · GitHub · Telegram · Indeed · Playwright · Image gen</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- COMMAND CENTER -->
+<section id="s-command-center">
+<div class="container">
+  <div class="eyebrow">Collaboration Hub</div>
+  <h2 style="margin-bottom:8px">Command Center</h2>
+  <p style="margin-bottom:24px;max-width:560px">A single interactive HTML file — the shared surface where C-3PO writes and Vladimir reads. Not a static report. A live platform that can be fully rebuilt every heartbeat or the moment something in the environment changes.</p>
+
+  <div class="cc-schema">
+    <div class="cc-node">
+      <div class="cc-node-icon">🤖</div>
+      <div class="cc-node-name">C-3PO</div>
+      <div class="cc-node-sub">Executive Assistant · Runtime</div>
+    </div>
+    <div class="cc-conn">
+      <div class="cc-conn-line"></div>
+      <div class="cc-conn-label">writes ──▶</div>
+      <div class="cc-conn-line"></div>
+    </div>
+    <div class="cc-hub">
+      <div class="cc-hub-badge">Live · Interactive Platform</div>
+      <div class="cc-hub-name">command-center.html</div>
+      <div class="cc-hub-desc">Single-file dashboard. Self-contained. Opened in any browser. No server, no login, no build step — just open it.</div>
+      <div class="cc-panels">
+        <span class="cc-panel-chip">Jobs Pipeline</span>
+        <span class="cc-panel-chip">Calendar</span>
+        <span class="cc-panel-chip">Today's Priorities</span>
+        <span class="cc-panel-chip">Network Pulse</span>
+        <span class="cc-panel-chip">Morning Digest</span>
+        <span class="cc-panel-chip">Heartbeat Log</span>
+      </div>
+    </div>
+    <div class="cc-conn">
+      <div class="cc-conn-line"></div>
+      <div class="cc-conn-label">◀── reads</div>
+      <div class="cc-conn-line"></div>
+    </div>
+    <div class="cc-node">
+      <div class="cc-node-icon">👤</div>
+      <div class="cc-node-name">Vladimir</div>
+      <div class="cc-node-sub">User · Decision Maker</div>
+    </div>
+  </div>
+
+  <div class="cc-rebuild">
+    <div class="cc-rebuild-lbl">Rebuilds when</div>
+    <div class="cc-chips">
+      <span class="cc-chip primary">Every 2h heartbeat (Phase C)</span>
+      <span class="cc-chip">Diff detected: new file, priority change</span>
+      <span class="cc-chip">Career signal flagged in Gmail or Linear</span>
+      <span class="cc-chip">Calendar event added or updated</span>
+      <span class="cc-chip">Opportunity alert from scanner</span>
+      <span class="cc-chip">Manually: "rebuild dashboard"</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- KEY NUMBERS -->
+<section id="s-numbers">
+<div class="container" style="padding:0">
+<div class="numbers-grid">
+  <div class="num-item"><div class="num-val">47</div><div class="num-label">Heartbeat Cycles</div><div class="num-sub">this month</div></div>
+  <div class="num-item"><div class="num-val">12</div><div class="num-label">Skills Built</div><div class="num-sub">organically</div></div>
+  <div class="num-item"><div class="num-val">10+</div><div class="num-label">MCP Integrations</div><div class="num-sub">connected tools</div></div>
+  <div class="num-item"><div class="num-val">~$14</div><div class="num-label">AI Cost</div><div class="num-sub">month-to-date</div></div>
+  <div class="num-item"><div class="num-val">5</div><div class="num-label">Daily Tasks</div><div class="num-sub">automated</div></div>
+</div>
+</div>
+</section>
+
+<!-- HEARTBEAT ENGINE -->
+<section id="s-heartbeat">
+<div class="container">
+  <div class="eyebrow">The Core</div>
+  <h2 style="margin-bottom:8px">9-Phase Heartbeat Engine</h2>
+  <p style="margin-bottom:28px;max-width:560px">Runs every 2 hours via a self-renewing cron job. Detects changes, fetches live data, runs daily tasks, rebuilds the dashboard, and renews itself — all without human intervention.</p>
+  <div class="hb-controls">
+    <button class="hb-btn playing" id="hb-play-btn" onclick="toggleHB()">⏸ Pause</button>
+    <span class="hb-phase-tag" id="hb-tag">Phase A — Diff Detection</span>
+  </div>
+  <div class="hb-scroll">
+    <div class="hb-diagram" id="hb-diagram">
+      <div class="hb-phase active" id="hbp-0" onclick="selectPhase(0)">
+        <div class="hb-node">A</div><div class="hb-label">Diff<br>Detection</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-0"></div></div>
+      <div class="hb-phase" id="hbp-1" onclick="selectPhase(1)">
+        <div class="hb-node">B</div><div class="hb-label">Live<br>Data</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-1"></div></div>
+      <div class="hb-phase" id="hbp-2" onclick="selectPhase(2)">
+        <div class="hb-node">B5</div><div class="hb-label">Daily<br>Tasks</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-2"></div></div>
+      <div class="hb-phase" id="hbp-3" onclick="selectPhase(3)">
+        <div class="hb-node">C</div><div class="hb-label">File<br>Aggregation</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-3"></div></div>
+      <div class="hb-phase" id="hbp-4" onclick="selectPhase(4)">
+        <div class="hb-node">D</div><div class="hb-label">Analysis</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-4"></div></div>
+      <div class="hb-phase" id="hbp-5" onclick="selectPhase(5)">
+        <div class="hb-node">E</div><div class="hb-label">Dashboard<br>Rebuild</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-5"></div></div>
+      <div class="hb-phase" id="hbp-6" onclick="selectPhase(6)">
+        <div class="hb-node">F</div><div class="hb-label">Console<br>Output</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-6"></div></div>
+      <div class="hb-phase" id="hbp-7" onclick="selectPhase(7)">
+        <div class="hb-node">G</div><div class="hb-label">Self-<br>Renewal</div>
+      </div>
+      <div class="hb-conn"><div class="hb-travel" id="hbt-7"></div></div>
+      <div class="hb-phase" id="hbp-8" onclick="selectPhase(8)">
+        <div class="hb-node">H</div><div class="hb-label">State<br>Persistence</div>
+      </div>
+    </div>
+  </div>
+  <div class="hb-detail">
+    <div class="hb-detail-title" id="hb-dtitle">Phase A — Diff Detection</div>
+    <div class="hb-detail-desc" id="hb-ddesc">Reads modification times of watched context and state files. If zero changes and no MCP data available: emits a single-line quiet cycle and stops. Average cost: near zero.</div>
+  </div>
+</div>
+</section>
+
+<!-- FEATURE CARDS -->
+<section id="s-features">
+<div class="container">
+  <div class="eyebrow">What It Does</div>
+  <h2 style="margin-bottom:8px">8 Core Capabilities</h2>
+  <p style="margin-bottom:28px;max-width:560px">Tap any card to see technical details and real-world business applications.</p>
+  <div class="features-grid">
+
+    <div class="fc" id="fc-0">
+      <div class="fc-hdr" onclick="toggleFC(0)">
+        <div class="fc-icon">💓</div>
+        <div class="fc-titles"><div class="fc-title">The Heartbeat Engine</div><div class="fc-one">Self-renewing 9-phase cycle, every 2 hours</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">A 9-phase cycle runs every 2 hours via CronCreate. Phase A detects file changes (cheap). Phases B and C gather live data from MCP servers. Phase D runs cross-domain analysis. Phase E rebuilds the dashboard. Phase G self-renews the cron job before it expires. The system maintains itself indefinitely without manual intervention.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Operations centers, security monitoring, compliance tracking, automated reporting cadences that never need a maintenance window.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-1">
+      <div class="fc-hdr" onclick="toggleFC(1)">
+        <div class="fc-icon">🧠</div>
+        <div class="fc-titles"><div class="fc-title">12 Specialized Skills</div><div class="fc-one">Markdown contracts, organic creation</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">Each skill is a markdown file: input contract, output contract, failure conditions. Skills are invoked by the Claude runtime — not a scheduler. A skill is only created after the same task has been done manually 3 times. No premature abstraction. Current skills cover: knowledge capture, email drafting, meeting prep, iterative research, content generation, and career tracking.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Institutional knowledge capture, onboarding acceleration, reusable process playbooks that any future AI runtime can execute without re-engineering.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-2">
+      <div class="fc-hdr" onclick="toggleFC(2)">
+        <div class="fc-icon">⏰</div>
+        <div class="fc-titles"><div class="fc-title">5 Daily Automated Tasks</div><div class="fc-one">Time-gated, state-machine controlled</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">Each task checks three conditions before running: (1) already ran today? (2) is it the right hour? (3) is it the right day of week? Tasks: morning digest at 06:00 daily, career pulse at 08:00 weekdays, opportunity scanner at 10:00 weekdays, network pulse at 14:00 Mon/Wed/Fri, calendar intelligence at 19:00 daily. A state file prevents duplicate runs.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Tender tracking, market intelligence, compliance deadlines, automated briefing preparation — all without a dedicated scheduler service or cloud function.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-3">
+      <div class="fc-hdr" onclick="toggleFC(3)">
+        <div class="fc-icon">📚</div>
+        <div class="fc-titles"><div class="fc-title">Knowledge Management</div><div class="fc-one">Obsidian-lite: markdown and quality gates</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">Three knowledge layers: eureka captures (strategic insights, tagged), digests (daily news filtered by 3 quality gates: day-precise date, clickable URL, non-obvious finding), and research briefs (iterative scored research with coverage/relevance/actionability rubric, max 3 rounds). No database or vector search required.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Due diligence, competitive intelligence, market analysis. Quality gates ensure no hallucinated sources or stale articles reach the output layer.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-4">
+      <div class="fc-hdr" onclick="toggleFC(4)">
+        <div class="fc-icon">🗂️</div>
+        <div class="fc-titles"><div class="fc-title">Context File System</div><div class="fc-one">Markdown prompts that replace fine-tuning</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">A set of markdown files injected at session start that define who, what, where, and why for the AI runtime. Covers identity, current work, team, priorities, goals, and voice profile. Updated by the brain-drainer skill at session end. Replaces expensive fine-tuning with cheap prompt injection. Any change immediately affects all future sessions.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Team onboarding, institutional memory, collective knowledge base, handoff documentation — readable by humans and executable by AI alike.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-5">
+      <div class="fc-hdr" onclick="toggleFC(5)">
+        <div class="fc-icon">🔄</div>
+        <div class="fc-titles"><div class="fc-title">Self-Improvement Engine</div><div class="fc-one">Corrections learned and persisted across sessions</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">A learned-rules file captures behavioral corrections in real time: format, tone, workflow, content standards. Continuous improvement rules define weekly audit cycles and monthly system reviews. A decision log is append-only, providing a complete audit trail. Corrections made once apply permanently across all future sessions without retraining.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Continuous process optimization, quality management, audit trails, kaizen cycles — the system genuinely improves from operational feedback.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-6">
+      <div class="fc-hdr" onclick="toggleFC(6)">
+        <div class="fc-icon">🔌</div>
+        <div class="fc-titles"><div class="fc-title">MCP Integration Hub</div><div class="fc-one">LLM as the integration layer</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">Over 10 MCP servers connected: email, calendar, task management, code repositories, messaging, job search, browser automation. Tool access is scoped per-agent via a config file. New integrations added without code changes — add a server definition and the runtime discovers the tools. The LLM handles context, routing, and error recovery.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Enterprise integration without middleware. The LLM replaces Zapier, n8n, and custom connectors for workflows that require reasoning, not just data routing.</div></div>
+      </div></div></div>
+    </div>
+
+    <div class="fc" id="fc-7">
+      <div class="fc-hdr" onclick="toggleFC(7)">
+        <div class="fc-icon">📊</div>
+        <div class="fc-titles"><div class="fc-title">Command Center Dashboard</div><div class="fc-one">Single-file HTML, rebuilt each active cycle</div></div>
+        <div class="fc-chev">⌄</div>
+      </div>
+      <div class="fc-wrap"><div class="fc-inner"><div class="fc-body">
+        <div class="fc-tech">A single HTML file updated by the heartbeat engine on every active cycle. A DATA object holds all dynamic content: metrics, contact scores, alerts, heartbeat log entries. Readable in any browser. Sharable as a file attachment. No server, no build tools, no hosting required. The HTML file is the database, frontend, and report simultaneously.</div>
+        <div class="fc-biz"><div class="fc-biz-lbl">🏢 Business Application</div><div class="fc-biz-txt">Portable operational dashboards, zero-maintenance reporting, stakeholder briefing tools — deployable with zero infrastructure and zero ongoing cost.</div></div>
+      </div></div></div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- SKILLS EXPLORER -->
+<section id="s-skills">
+<div class="container">
+  <div class="eyebrow">The Skill Layer</div>
+  <h2 style="margin-bottom:8px">12 Specialized Skills</h2>
+  <p style="margin-bottom:6px;max-width:560px">Each skill is a markdown file with a defined contract: input, output, failure conditions. Created organically — the same task done 3 times manually triggers a new skill build.</p>
+</div>
+<div class="skills-hint">← Swipe to explore all 12 skills →</div>
+<div class="skills-scroll">
+  <div class="sk" onclick="openSheet(0)"><div class="sk-icon">⚡</div><div class="sk-name">eureka-capture</div><div class="sk-desc">Captures strategic insights and cross-domain patterns as they emerge</div><div class="sk-trigger">"capture this"</div></div>
+  <div class="sk" onclick="openSheet(1)"><div class="sk-icon">🧃</div><div class="sk-name">brain-drainer</div><div class="sk-desc">Extracts session knowledge and updates context files at session end</div><div class="sk-trigger">"drain this session"</div></div>
+  <div class="sk" onclick="openSheet(2)"><div class="sk-icon">✍️</div><div class="sk-name">linkedin-content</div><div class="sk-desc">Generates posts in authentic voice with quality verification on all stats</div><div class="sk-trigger">"write a post about X"</div></div>
+  <div class="sk" onclick="openSheet(3)"><div class="sk-icon">🔍</div><div class="sk-name">system-review</div><div class="sk-desc">Self-improvement audit: skill usage, automation health, upgrade proposals</div><div class="sk-trigger">"audit the system"</div></div>
+  <div class="sk" onclick="openSheet(4)"><div class="sk-icon">📱</div><div class="sk-name">mobile-capture</div><div class="sk-desc">Routes quick captures from mobile and remote sessions intelligently</div><div class="sk-trigger">Short messages, bare URLs</div></div>
+  <div class="sk" onclick="openSheet(5)"><div class="sk-icon">📧</div><div class="sk-name">email-drafter</div><div class="sk-desc">Drafts professional emails applying strict voice profile rules</div><div class="sk-trigger">"draft an email to X"</div></div>
+  <div class="sk" onclick="openSheet(6)"><div class="sk-icon">🎯</div><div class="sk-name">meeting-prep</div><div class="sk-desc">Research briefing before any meeting, call, or industry event</div><div class="sk-trigger">"prep me for meeting with X"</div></div>
+  <div class="sk" onclick="openSheet(7)"><div class="sk-icon">📅</div><div class="sk-name">weekly-review</div><div class="sk-desc">Weekly wrap, content angles, three focus areas for next week</div><div class="sk-trigger">"weekly review"</div></div>
+  <div class="sk" onclick="openSheet(8)"><div class="sk-icon">🏃</div><div class="sk-name">career-tracker</div><div class="sk-desc">Job search pipeline management using Linear as source of truth</div><div class="sk-trigger">"track this application"</div></div>
+  <div class="sk" onclick="openSheet(9)"><div class="sk-icon">💓</div><div class="sk-name">command-loop</div><div class="sk-desc">Continuous intelligence heartbeat, self-renewing, session-scoped</div><div class="sk-trigger">"/loop"</div></div>
+  <div class="sk" onclick="openSheet(10)"><div class="sk-icon">🔬</div><div class="sk-name">deep-research</div><div class="sk-desc">Iterative scored web research with quality threshold and gap detection</div><div class="sk-trigger">"research X" / "deep dive"</div></div>
+  <div class="sk" onclick="openSheet(11)"><div class="sk-icon">🔮</div><div class="sk-name">background-thinker</div><div class="sk-desc">Anticipatory analysis across 5 domains, surfaces non-obvious insights</div><div class="sk-trigger">"think ahead"</div></div>
+</div>
+</section>
+
+<!-- ARCHITECTURE PRINCIPLES -->
+<section id="s-principles">
+<div class="container">
+  <div class="eyebrow">Design Thinking</div>
+  <h2 style="margin-bottom:8px">7 Architecture Principles</h2>
+  <p style="margin-bottom:28px;max-width:560px">The constraints that make this system maintainable, cheap, and genuinely useful.</p>
+  <div class="principles-list">
+    <div class="pr"><div class="pr-num">01</div><div><div class="pr-title">Claude Code-native platform</div><div class="pr-desc">The LLM runtime IS the platform. No separate orchestrator, no agent framework, no pipeline DSL. Skills are markdown files. State is JSON. The REPL is the scheduler.</div></div></div>
+    <div class="pr"><div class="pr-num">02</div><div><div class="pr-title">Pure markdown + JSON + HTML</div><div class="pr-desc">Fully portable. Zero dependencies on hosted services beyond the AI API itself. Move it to a new machine: copy one folder and it works. No lock-in.</div></div></div>
+    <div class="pr"><div class="pr-num">03</div><div><div class="pr-title">Organic skill creation: 3x-then-build</div><div class="pr-desc">No premature abstraction. A skill is only created after the same task has been done manually 3 times. Every skill is born from real usage, not speculation about future needs.</div></div></div>
+    <div class="pr"><div class="pr-num">04</div><div><div class="pr-title">State machine patterns for reliability</div><div class="pr-desc">Formal states: active / paused / pending / completed. Error counts. Last-run timestamps. Prevents duplicate runs, detects failures, enables recovery without human intervention.</div></div></div>
+    <div class="pr"><div class="pr-num">05</div><div><div class="pr-title">Self-renewal by design</div><div class="pr-desc">The system recreates its own scheduled jobs before they expire. Zero manual maintenance after initial setup. The heartbeat runs until explicitly stopped.</div></div></div>
+    <div class="pr"><div class="pr-num">06</div><div><div class="pr-title">Cost transparency per cycle</div><div class="pr-desc">$0.17 per heartbeat cycle. ~$14/month total across all automations. Every task has a measurable cost per run. AI automation is cheap — but measure it anyway.</div></div></div>
+    <div class="pr"><div class="pr-num">07</div><div><div class="pr-title">Quality gates at every output stage</div><div class="pr-desc">Day-precise publication dates on news. Scoring rubric on research (coverage/relevance/actionability). Fact-check on public-facing content before it ships. No hallucinations in the output layer.</div></div></div>
+  </div>
+</div>
+</section>
+
+<div class="page-footer container">Built with Claude Code. No Docker, no SQL, no build tools.</div>
+
+<!-- BOTTOM SHEET -->
+<div id="sheet-overlay" onclick="closeSheet()"></div>
+<div id="skill-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-hdr">
+    <div class="sheet-ttl" id="sheet-ttl">Skill</div>
+    <button class="sheet-close" onclick="closeSheet()">&#10005;</button>
+  </div>
+  <div class="sheet-body">
+
+    <div class="skill-panel" id="sp-0">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"capture this" / "save that insight"</div></div>
+      <div class="sheet-desc">Invoked automatically when a pattern connects different domains, reveals a market opportunity, or surfaces a positioning angle. Also triggered manually at any point in a session.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Conversation context</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">knowledge/eureka/YYYY-MM-DD_slug.md</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Templated format with tags and WikiLinks. Proactively invoked without waiting for permission when something valuable surfaces. Does not require an explicit trigger phrase.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-1">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"drain this session" / "update my context"</div></div>
+      <div class="sheet-desc">Extracts session knowledge and updates the context files so the next session opens with an accurate, current picture of reality.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Full session transcript</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Updated context/*.md files</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Reviews the session for new contacts, relationship changes, project status updates, and positioning insights. The context system is how C-3PO carries memory across sessions without a database.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-2">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"write a post about X" / "draft a LinkedIn post"</div></div>
+      <div class="sheet-desc">Generates posts in authentic voice with strict formatting rules and mandatory stat verification before finalizing.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Topic or eureka capture</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Plain text, ready to paste (no markdown)</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Rules: Unicode bold on 3-5 key phrases, 2-3 emojis, intentional minor imperfections. All stats verified via WebSearch before finalizing. Never ships unverified numbers.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-3">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"audit the system" / "monthly review"</div></div>
+      <div class="sheet-desc">Self-improvement audit: which skills were used, what failed, what should be built or upgraded next.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">All skill files, automation logs</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Structured decisions, not observations</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Weekly: skill usage audit, 1-2 improvement proposals. Monthly: full system review, new MCP research, skills backlog reprioritization. Produces concrete decisions ready to act on.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-4">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">Short messages, bare URLs, "note this"</div></div>
+      <div class="sheet-desc">Routes quick captures from mobile and remote sessions — handles the ambiguity of short messages by figuring out intent and routing to the right place.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Any short message or URL</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Routed to correct destination</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Covers: notes, URLs, image attachments, status checks. Confirms in under 200 words. Designed for the iOS app where full context isn't available.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-5">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"draft an email to X" / "follow up with"</div></div>
+      <div class="sheet-desc">Drafts professional emails applying strict voice profile rules. No em dashes, no formal sign-offs, no preamble, one clear ask per message.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Context + recipient + intent</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Ready-to-send draft</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Uses reverse prompting (3-5 clarifying questions) before drafting any high-stakes external communication. One ask per message. Short, direct, concrete sign-off.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-6">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"prep me for meeting with X" / "I have a call with"</div></div>
+      <div class="sheet-desc">Research briefing before any meeting, call, or event. Produces: who they are, what they care about, what to say, what to ask.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Person/company + meeting context</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Focused briefing saved to knowledge/meeting-prep/</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Runs WebSearch for recent activity. Saved file is also referenced by the calendar-intelligence daily task for its evening meeting check.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-7">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"weekly review" / "Friday wrap"</div></div>
+      <div class="sheet-desc">Weekly wrap covering goal progress, LinkedIn content angles, stale context flags, and three prioritized focus areas for the coming week.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Week's context files and automation logs</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">knowledge/YYYY-MM-DD_weekly-review.md</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Reviews progress against quarterly goals, surfaces the best content angles from the week's captured insights, and flags any context files that are becoming stale.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-8">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"track this application" / "any follow-ups due"</div></div>
+      <div class="sheet-desc">Job search pipeline management using Linear as the authoritative source of truth, synchronized with the priorities context file.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Application details + Linear state</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Updated Linear issues + context sync</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Creates Linear issues per application, tracks status transitions, flags stale applications at 7+ days with no activity. Demonstrates using a project management tool as an AI-readable state machine.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-9">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"/loop" / "start the loop"</div></div>
+      <div class="sheet-desc">Continuous intelligence heartbeat — the core automation engine. Self-renewing, session-scoped, absorbs multiple other automation functions.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">All context and state files</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Updated command-center.html + console output</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">9-phase cycle, 2-hour interval via CronCreate. Registers its own cron job and renews it at 60h (before the 72h expiry). Absorbs: calendar prep, health nudges, weekly review elements. Cost: ~$0.17/cycle.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-10">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"research X" / "deep dive on"</div></div>
+      <div class="sheet-desc">Iterative scored web research with quality threshold. Stops when findings are good enough. Flags gaps explicitly when not.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Research topic + current priorities context</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">knowledge/research/YYYY-MM-DD_slug.md</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Scoring rubric: coverage (3pts) + relevance (4pts) + actionability (3pts). Score under 6: iterate with refined queries. Max 3 rounds. INSIST items surface immediately when a finding requires same-day action.</div></div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="sp-11">
+      <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"think ahead" / "what am I missing"</div></div>
+      <div class="sheet-desc">Anticipatory analysis across 5 domains. Surfaces non-obvious insights with specific actions — not vague observations.</div>
+      <div class="sheet-rows">
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">All context + latest automation logs</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">knowledge/thinking/YYYY-MM-DD.md + top 3 insights</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">5 domains: career trajectory, content opportunities, relationship intelligence, goal progress, system optimization. Every insight must include a specific action. Runs embedded in heartbeat Phase D or on-demand.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── HEARTBEAT ─────────────────────────────────────────────────
+const phaseData = [
+  { title:'Phase A — Diff Detection', desc:'Reads modification times of watched context and state files. If zero changes and no MCP data available: emits a single-line quiet cycle and stops. Average cost: near zero.' },
+  { title:'Phase B — Live Data', desc:'Queries connected MCP servers: task management, email, and calendar. Results are hashed and compared against the previous snapshot. Only triggers a full rebuild if something actually changed.' },
+  { title:'Phase B5 — Time-Gated Daily Tasks', desc:'Evaluates 5 scheduled tasks by checking: (1) already ran today? (2) right hour? (3) right day of week? Each task fires once per day at its target window. A state machine prevents duplicate runs.' },
+  { title:'Phase C — File Aggregation', desc:'Reads changed context files, latest automation logs, recent knowledge captures, and upcoming meeting prep files. Only executes if changes were detected in Phase A. Skipped on quiet cycles.' },
+  { title:'Phase D — Analysis', desc:'Runs cross-domain analysis: pipeline health, contact decay scores, content cadence, calendar prep gaps, and goal progress. Generates the alerts array. Also invokes the background-thinker for non-obvious pattern detection.' },
+  { title:'Phase E — Dashboard Rebuild', desc:'Reconstructs the single-file HTML command center. Updates the DATA object with fresh metrics, contact scores, heartbeat log entries, and system status. Estimated cost per active rebuild: ~$0.17.' },
+  { title:'Phase F — Console Output', desc:'Emits structured status output: pipeline, contacts, calendar, content cadence, system health. Career alerts get priority formatting. Midday cycles include a health nudge. Quiet cycles emit a single timestamped line.' },
+  { title:'Phase G — Self-Renewal', desc:'Checks elapsed time since last job registration. At 60 hours (of the 72-hour CronCreate maximum), the system creates a new cron job and deletes the old one. Zero manual maintenance required after initial setup.' },
+  { title:'Phase H — State Persistence', desc:'Writes the updated loop state JSON: cycle count, file fingerprints, MCP data snapshots, duration tracking, cost accumulation, and daily task last-run timestamps. Single source of truth for all automation state.' }
+];
+
+let hbPlaying = true;
+let hbInterval = null;
+let hbCurrent = 0;
+
+function selectPhase(idx) {
+  hbCurrent = idx;
+  for (let i = 0; i < 9; i++) {
+    const el = document.getElementById('hbp-' + i);
+    if (el) el.classList.toggle('active', i === idx);
+  }
+  document.getElementById('hb-dtitle').textContent = phaseData[idx].title;
+  document.getElementById('hb-ddesc').textContent = phaseData[idx].desc;
+  document.getElementById('hb-tag').textContent = phaseData[idx].title;
+  if (idx > 0) {
+    const t = document.getElementById('hbt-' + (idx - 1));
+    if (t) { t.classList.remove('go'); void t.offsetWidth; t.classList.add('go'); }
+  }
+}
+
+function toggleHB() {
+  const btn = document.getElementById('hb-play-btn');
+  if (hbPlaying) {
+    clearInterval(hbInterval); hbInterval = null; hbPlaying = false;
+    btn.textContent = '\u25B6 Play'; btn.classList.remove('playing');
+  } else {
+    hbInterval = setInterval(function() { selectPhase((hbCurrent + 1) % 9); }, 3000);
+    hbPlaying = true;
+    btn.textContent = '\u23F8 Pause'; btn.classList.add('playing');
+  }
+}
+
+// ── FEATURE CARDS ─────────────────────────────────────────────
+function toggleFC(idx) {
+  var card = document.getElementById('fc-' + idx);
+  var wasOpen = card.classList.contains('open');
+  var all = document.querySelectorAll('.fc');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
+  if (!wasOpen) card.classList.add('open');
+}
+
+// ── SKILLS SHEET ──────────────────────────────────────────────
+function openSheet(idx) {
+  var panels = document.querySelectorAll('.skill-panel');
+  for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
+  var p = document.getElementById('sp-' + idx);
+  if (p) p.classList.add('active');
+
+  var names = ['eureka-capture','brain-drainer','linkedin-content','system-review','mobile-capture','email-drafter','meeting-prep','weekly-review','career-tracker','command-loop','deep-research','background-thinker'];
+  var icons = ['\u26A1','\uD83E\uDDE3','\u270D\uFE0F','\uD83D\uDD0D','\uD83D\uDCF1','\uD83D\uDCE7','\uD83C\uDFAF','\uD83D\uDCC5','\uD83C\uDFC3','\uD83D\uDC93','\uD83D\uDD2C','\uD83D\uDD2E'];
+  var ttl = document.getElementById('sheet-ttl');
+  ttl.textContent = '';
+  var span = document.createElement('span');
+  span.style.fontSize = '22px';
+  span.textContent = icons[idx] || '';
+  ttl.appendChild(span);
+  ttl.appendChild(document.createTextNode(' ' + names[idx]));
+
+  document.getElementById('skill-sheet').classList.add('open');
+  document.getElementById('sheet-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSheet() {
+  document.getElementById('skill-sheet').classList.remove('open');
+  document.getElementById('sheet-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── TYPING ANIMATION ──────────────────────────────────────────
+var taglines = [
+  '12 skills. 9-phase heartbeat. 10+ integrations. Zero Docker. Zero SQL.',
+  'The LLM runtime IS the platform.',
+  '$0.17 per cycle. ~$14/month. Fully automated.',
+  'Context-aware. Self-renewing. Cost-transparent.',
+  '3x manual = build a skill. No premature abstraction.'
+];
+var tIdx = 0, cIdx = 0, deleting = false;
+
+function type() {
+  var el = document.getElementById('tagline-text');
+  var cur = taglines[tIdx];
+  if (!deleting) {
+    cIdx++;
+    el.textContent = cur.slice(0, cIdx);
+    if (cIdx === cur.length) { deleting = true; setTimeout(type, 2200); return; }
+    setTimeout(type, 38);
+  } else {
+    cIdx--;
+    el.textContent = cur.slice(0, cIdx);
+    if (cIdx === 0) { deleting = false; tIdx = (tIdx + 1) % taglines.length; setTimeout(type, 300); return; }
+    setTimeout(type, 18);
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  hbInterval = setInterval(function() { selectPhase((hbCurrent + 1) % 9); }, 3000);
+  type();
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSheet(); });
+});
+</script>
+
+<!-- ── LINKEDIN BADGE ──────────────────────────────────────── -->
+<div id="li-badge" style="
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+">
+  <div id="li-qr" style="
+    background:#fff;border:1px solid rgba(0,0,0,0.10);border-radius:10px;
+    padding:8px;box-shadow:0 4px 20px rgba(0,0,0,0.12);
+    opacity:0;transform:translateY(8px);
+    transition:opacity .2s ease,transform .2s ease;pointer-events:none;
+  ">
+    <a href="https://linkedin.com/in/vladimir-vorotilov" target="_blank" rel="noopener">
+      <img src="https://chart.googleapis.com/chart?cht=qr&chs=110x110&chl=https%3A%2F%2Flinkedin.com%2Fin%2Fvladimir-vorotilov&choe=UTF-8&chld=M|1"
+           width="110" height="110" alt="LinkedIn QR" style="display:block;border-radius:4px;">
+    </a>
+    <p style="font-size:10px;color:#6b7280;text-align:center;margin-top:5px;font-family:'Inter',sans-serif;">Scan to connect</p>
+  </div>
+  <a href="https://linkedin.com/in/vladimir-vorotilov" target="_blank" rel="noopener"
+     id="li-pill"
+     onmouseenter="document.getElementById('li-qr').style.opacity='1';document.getElementById('li-qr').style.transform='translateY(0)';document.getElementById('li-qr').style.pointerEvents='auto';"
+     onmouseleave="document.getElementById('li-qr').style.opacity='0';document.getElementById('li-qr').style.transform='translateY(8px)';document.getElementById('li-qr').style.pointerEvents='none';"
+     style="
+    display:flex;align-items:center;gap:9px;
+    background:#0a66c2;color:#fff;
+    padding:9px 14px;border-radius:40px;
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+    text-decoration:none;
+    box-shadow:0 4px 16px rgba(10,102,194,0.40);
+    transition:box-shadow .15s ease,transform .15s ease;
+  "
+  onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform='scale(1)'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+    Vladimir Vorotilov
+  </a>
+</div>
+
+</body>
+</html>

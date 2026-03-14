@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mining Supply Intelligence Platform -- Vladimir Vorotilov Portfolio</title>
+  <meta name="description" content="7-page Streamlit dashboard with 6 analytics engines: supply risk scoring, compliance monitoring, spend analytics, KPI tracking, and NLQ interface. 29 automated tests.">
+  <meta property="og:title" content="Mining Supply Intelligence Platform -- Vladimir Vorotilov">
+  <meta property="og:description" content="Random Forest supplier risk scoring, Isolation Forest anomaly detection, NLQ interface. Built for a mining major procurement context. 29 automated tests, seed-based synthetic data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17; --surface: #111827; --surface-2: #162032;
+      --border: #1e293b; --text: #e2e8f0; --text-muted: #94a3b8; --text-dim: #64748b;
+      --accent: #f4a825; --accent-2: #3b82f6; --accent-3: #10b981; --accent-4: #a78bfa;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); min-height: 100vh; overflow-x: hidden; }
+
+    .cursor-glow { position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(16,185,129,0.05), transparent 60%); }
+
+    .page-wrapper { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; padding: 40px 32px 80px; }
+
+    .nav-back { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--text-dim); text-decoration: none; letter-spacing: .05em; margin-bottom: 48px; transition: color .2s; }
+    .nav-back:hover { color: var(--accent-3); }
+
+    .eyebrow { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2.5px; color: var(--accent-3); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: '//'; opacity: 0.35; }
+
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.5px; line-height: 1.15;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; }
+
+    .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 680px; line-height: 1.7; margin-bottom: 32px; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; }
+    .badge { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;
+      text-transform: uppercase; letter-spacing: .08em; border: 1px solid; }
+    .badge-green { color: var(--accent-3); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.08); }
+    .badge-amber { color: var(--accent); border-color: rgba(244,168,37,0.3); background: rgba(244,168,37,0.08); }
+
+    .section-header { font-size: 0.7rem; font-weight: 700; color: var(--accent-3); text-transform: uppercase;
+      letter-spacing: 2.5px; margin-bottom: 24px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; }
+    .section-header::before { content: '//'; opacity: 0.35; }
+
+    .problem-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-3);
+      border-radius: 12px; padding: 28px 32px; margin-bottom: 48px; font-size: 1rem; color: var(--text-muted); line-height: 1.75; }
+    .problem-box em { color: var(--text); font-style: normal; font-weight: 500; }
+
+    .engines-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+    @media (max-width: 768px) { .engines-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .engines-grid { grid-template-columns: 1fr; } }
+
+    .engine-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+      transition: border-color .3s ease, box-shadow .3s ease; }
+    .engine-card:hover { border-color: rgba(16,185,129,0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+
+    .engine-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .engine-name { font-size: 0.875rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .engine-algo { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-3); font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .engine-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    .stats-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 48px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; flex: 1; min-width: 120px; }
+    .stat-val { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--accent-3); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; text-transform: uppercase;
+      letter-spacing: .06em; font-weight: 600; font-family: var(--font-mono); }
+
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+    .tech-chip { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; padding: 5px 12px;
+      border-radius: 6px; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
+      transition: border-color .2s, color .2s; }
+    .tech-chip:hover { border-color: rgba(16,185,129,0.3); color: var(--accent-3); }
+
+    footer { border-top: 1px solid var(--border); padding-top: 32px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-decoration: none;
+      letter-spacing: .05em; transition: color .2s; }
+    .footer-link:hover { color: var(--accent-3); }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .05s; } .d2 { transition-delay: .12s; } .d3 { transition-delay: .18s; }
+
+    @media (max-width: 768px) { .page-wrapper { padding: 24px 18px 60px; } footer { flex-direction: column; align-items: flex-start; } }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-glow { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="page-wrapper">
+
+    <a href="../portfolio.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2.5L3.5 7l5 4.5"/></svg>
+      Back to Portfolio
+    </a>
+
+    <div class="eyebrow reveal">Supply Chain Analytics</div>
+    <h1 class="reveal d1">Mining Supply Intelligence Platform</h1>
+    <p class="hero-sub reveal d2">
+      A 7-page analytics dashboard with 6 intelligence engines. Procurement risk, compliance monitoring, spend anomalies. Turns raw supply chain data into actionable intelligence before problems reach operations.
+    </p>
+
+    <div class="badge-row reveal d3">
+      <span class="badge badge-green">29 Automated Tests</span>
+      <span class="badge badge-amber">Seed-based Synthetic Data (seed=42)</span>
+      <span class="badge badge-green">Portfolio Project</span>
+    </div>
+
+    <div class="problem-box reveal">
+      <em>Procurement risk in mining is invisible until a supplier fails.</em> By the time it hits your KPIs, it's too late. The warehouse is empty, the machine is idle, the shift is lost. This platform scores 500 suppliers across risk dimensions, monitors compliance across 6 weighted dimensions, and detects spend anomalies before they compound. Built for the procurement manager who needs to answer "which suppliers are about to cause me a problem?" before the problem happens.
+    </div>
+
+    <h2 class="section-header reveal">Analytics Engines</h2>
+
+    <div class="engines-grid">
+      <div class="engine-card reveal d1">
+        <div class="engine-icon">&#128268;</div>
+        <div class="engine-name">Risk Engine</div>
+        <div class="engine-algo">Random Forest</div>
+        <p class="engine-desc">Supplier risk scoring: Low / Medium / High / Critical. Calibrated for 90% Australian supply base. Thresholds derived from operational failure patterns.</p>
+      </div>
+      <div class="engine-card reveal d2">
+        <div class="engine-icon">&#9989;</div>
+        <div class="engine-name">Compliance Engine</div>
+        <div class="engine-algo">6 Weighted Dimensions</div>
+        <p class="engine-desc">Modern slavery compliance and ESG monitoring. Six weighted dimensions including labour practices, environmental reporting, governance transparency.</p>
+      </div>
+      <div class="engine-card reveal d3">
+        <div class="engine-icon">&#128200;</div>
+        <div class="engine-name">Spend Analytics</div>
+        <div class="engine-algo">Isolation Forest + 2-sigma</div>
+        <p class="engine-desc">Anomaly detection across 50K transactions. Flags statistical outliers and pattern deviations. Weekend transaction threshold: $250K (mining is 24/7).</p>
+      </div>
+      <div class="engine-card reveal d1">
+        <div class="engine-icon">&#128196;</div>
+        <div class="engine-name">KPI Engine</div>
+        <div class="engine-algo">8 Headline Metrics</div>
+        <p class="engine-desc">Executive KPI calculations across FY23-FY25. Australian fiscal year aligned. P&amp;L-ready outputs for procurement leadership reporting.</p>
+      </div>
+      <div class="engine-card reveal d2">
+        <div class="engine-icon">&#128483;</div>
+        <div class="engine-name">NLQ Interface</div>
+        <div class="engine-algo">Claude API (production) / Mock (demo)</div>
+        <p class="engine-desc">Natural language queries against the full dataset. Ask "which suppliers are high-risk in WA?" and get a structured response. Demo uses MockNLQEngine.</p>
+      </div>
+      <div class="engine-card reveal d3">
+        <div class="engine-icon">&#128202;</div>
+        <div class="engine-name">Visualizations</div>
+        <div class="engine-algo">ChartFactory + Brand Theme</div>
+        <p class="engine-desc">Custom chart factory with mining-major brand theme. Consistent visual language across 7 dashboard pages. Plotly-based interactive charts.</p>
+      </div>
+    </div>
+
+    <h2 class="section-header reveal">Platform Stats</h2>
+
+    <div class="stats-row reveal">
+      <div class="stat-card">
+        <div class="stat-val">500</div>
+        <div class="stat-label">Synthetic suppliers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">50K</div>
+        <div class="stat-label">Transactions (FY23-25)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">29</div>
+        <div class="stat-label">Automated tests</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">7</div>
+        <div class="stat-label">Dashboard pages</div>
+      </div>
+    </div>
+
+    <h2 class="section-header reveal">Technology Stack</h2>
+
+    <div class="tech-stack reveal">
+      <span class="tech-chip">Python 3.11</span>
+      <span class="tech-chip">Streamlit</span>
+      <span class="tech-chip">Plotly</span>
+      <span class="tech-chip">Pandas</span>
+      <span class="tech-chip">scikit-learn</span>
+      <span class="tech-chip">pytest (29 tests)</span>
+      <span class="tech-chip">Claude API</span>
+    </div>
+
+    <footer class="reveal">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:.9rem;font-weight:700;color:var(--text)">Vladimir Vorotilov</div>
+        <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--accent-3)">Full working rights in Australia</div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="../portfolio.html" class="footer-link">Portfolio</a>
+        <a href="../index.html" class="footer-link">CV</a>
+        <a href="https://linkedin.com/in/vladimir-vorotilov" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.addEventListener('mousemove', function(e) {
+      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+    });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Intelligence System -- Vladimir Vorotilov Portfolio</title>
+  <meta name="description" content="KNIS: Physics-inspired professional network analysis. Mass (seniority) + Velocity (recency) = Priority score. SvelteKit + FastAPI + MapLibre + pyvis.">
+  <meta property="og:title" content="Network Intelligence System -- Vladimir Vorotilov">
+  <meta property="og:description" content="Professional networks decay silently. KNIS applies physics to relationships: mass (seniority), velocity (recency), priority blend. Three implementations across Python, SvelteKit+FastAPI, and geocoded maps.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17; --surface: #111827; --surface-2: #162032;
+      --border: #1e293b; --text: #e2e8f0; --text-muted: #94a3b8; --text-dim: #64748b;
+      --accent: #f4a825; --accent-2: #3b82f6; --accent-3: #10b981; --accent-4: #a78bfa;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); min-height: 100vh; overflow-x: hidden; }
+
+    .cursor-glow { position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(167,139,250,0.05), transparent 60%); }
+
+    .page-wrapper { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; padding: 40px 32px 80px; }
+
+    .nav-back { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--text-dim); text-decoration: none; letter-spacing: .05em; margin-bottom: 48px; transition: color .2s; }
+    .nav-back:hover { color: var(--accent-4); }
+
+    .eyebrow { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2.5px; color: var(--accent-4); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: '//'; opacity: 0.35; }
+
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.5px; line-height: 1.15;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-4) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; }
+
+    .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 680px; line-height: 1.7; margin-bottom: 32px; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; }
+    .badge { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;
+      text-transform: uppercase; letter-spacing: .08em; border: 1px solid; }
+    .badge-purple { color: var(--accent-4); border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.08); }
+    .badge-amber { color: var(--accent); border-color: rgba(244,168,37,0.3); background: rgba(244,168,37,0.08); }
+
+    .section-header { font-size: 0.7rem; font-weight: 700; color: var(--accent-4); text-transform: uppercase;
+      letter-spacing: 2.5px; margin-bottom: 24px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; }
+    .section-header::before { content: '//'; opacity: 0.35; }
+
+    .problem-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-4);
+      border-radius: 12px; padding: 28px 32px; margin-bottom: 48px; font-size: 1rem; color: var(--text-muted); line-height: 1.75; }
+    .problem-box em { color: var(--text); font-style: normal; font-weight: 500; }
+
+    /* SCORING FORMULA */
+    .formula-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px;
+      margin-bottom: 48px; display: flex; flex-direction: column; gap: 16px; }
+    .formula { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700; color: var(--text);
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .formula-accent { color: var(--accent-4); }
+    .formula-eq { color: var(--text-dim); }
+    .formula-vars { display: flex; flex-direction: column; gap: 8px; }
+    .formula-var { font-size: 0.875rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 10px; }
+    .formula-var-name { font-family: var(--font-mono); font-weight: 700; color: var(--accent-4); min-width: 80px; }
+
+    .impls-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+    @media (max-width: 640px) { .impls-grid { grid-template-columns: 1fr; } }
+
+    .impl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+      transition: border-color .3s ease; }
+    .impl-card:hover { border-color: rgba(167,139,250,0.3); }
+
+    .impl-num { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; color: var(--accent-4);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .impl-name { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .impl-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+    .tech-chip { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; padding: 5px 12px;
+      border-radius: 6px; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
+      transition: border-color .2s, color .2s; }
+    .tech-chip:hover { border-color: rgba(167,139,250,0.3); color: var(--accent-4); }
+
+    footer { border-top: 1px solid var(--border); padding-top: 32px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-decoration: none;
+      letter-spacing: .05em; transition: color .2s; }
+    .footer-link:hover { color: var(--accent-4); }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .05s; } .d2 { transition-delay: .12s; } .d3 { transition-delay: .18s; }
+
+    @media (max-width: 768px) { .page-wrapper { padding: 24px 18px 60px; } footer { flex-direction: column; align-items: flex-start; } }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-glow { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="page-wrapper">
+
+    <a href="../portfolio.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 2.5L3.5 7l5 4.5"/></svg>
+      Back to Portfolio
+    </a>
+
+    <div class="eyebrow reveal">Network Intelligence</div>
+    <h1 class="reveal d1">Network Intelligence System</h1>
+    <p class="hero-sub reveal d2">
+      Physics-inspired professional network analysis. Three implementations sharing one scoring methodology: mass, velocity, priority. Built to answer which relationships matter most right now.
+    </p>
+
+    <div class="badge-row reveal d3">
+      <span class="badge badge-purple">Physics-inspired scoring</span>
+      <span class="badge badge-amber">3 Implementations</span>
+      <span class="badge badge-purple">Privacy-first</span>
+    </div>
+
+    <div class="problem-box reveal">
+      <em>Professional networks decay silently.</em> The people who can open doors drift away because nobody tracked the relationship momentum. You notice it when you need an introduction and realize you haven't spoken in 18 months. KNIS applies physics to professional relationships: mass (seniority, influence), velocity (recency, interaction frequency), and a blended priority score. The result is a ranked list of who to contact today, not who you connected with in 2019.
+    </div>
+
+    <h2 class="section-header reveal">Scoring Methodology</h2>
+
+    <div class="formula-box reveal">
+      <div class="formula">
+        <span class="formula-accent">Priority</span>
+        <span class="formula-eq">=</span>
+        <span>0.6 &times; <span class="formula-accent">Mass</span></span>
+        <span class="formula-eq">+</span>
+        <span>0.4 &times; <span class="formula-accent">Velocity</span></span>
+      </div>
+      <div class="formula-vars">
+        <div class="formula-var">
+          <span class="formula-var-name">Mass</span>
+          <span>Seniority and influence score. Director-level = high mass. Junior IC = low mass. Role title + company size + industry weight.</span>
+        </div>
+        <div class="formula-var">
+          <span class="formula-var-name">Velocity</span>
+          <span>Recency and interaction momentum. Connection 3 weeks ago = high velocity. Connection 3 years ago with no interaction = near zero.</span>
+        </div>
+        <div class="formula-var">
+          <span class="formula-var-name">Priority</span>
+          <span>Blended score. High mass + high velocity = people to contact today. High mass + low velocity = relationships worth reactivating.</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-header reveal">Three Implementations</h2>
+
+    <div class="impls-grid">
+      <div class="impl-card reveal d1">
+        <div class="impl-num">v1 &mdash; Standalone</div>
+        <div class="impl-name">Python Analyzer</div>
+        <p class="impl-desc">Single-file Python tool. Takes LinkedIn CSV export, outputs ranked connection list with mass/velocity/priority scores. matplotlib + pyvis graph visualization.</p>
+      </div>
+      <div class="impl-card reveal d2">
+        <div class="impl-num">v2 &mdash; Full-stack</div>
+        <div class="impl-name">SvelteKit + FastAPI</div>
+        <p class="impl-desc">Full platform with persistent SQLite storage, REST API, and SvelteKit frontend. Upload CSV, explore graph interactively, filter by industry and seniority.</p>
+      </div>
+      <div class="impl-card reveal d3">
+        <div class="impl-num">v3 &mdash; Alpha</div>
+        <div class="impl-name">Geocoded Maps</div>
+        <p class="impl-desc">Alpha with MapLibre geographic visualization. Geocoded company locations across three tiers (exact, city, country). See where your network is concentrated globally.</p>
+      </div>
+    </div>
+
+    <h2 class="section-header reveal">Technology Stack</h2>
+
+    <div class="tech-stack reveal">
+      <span class="tech-chip">Python</span>
+      <span class="tech-chip">SvelteKit</span>
+      <span class="tech-chip">FastAPI</span>
+      <span class="tech-chip">SQLite</span>
+      <span class="tech-chip">MapLibre GL</span>
+      <span class="tech-chip">pyvis</span>
+      <span class="tech-chip">matplotlib</span>
+      <span class="tech-chip">Turborepo + pnpm</span>
+    </div>
+
+    <footer class="reveal">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:.9rem;font-weight:700;color:var(--text)">Vladimir Vorotilov</div>
+        <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--accent-3)">Full working rights in Australia</div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="../portfolio.html" class="footer-link">Portfolio</a>
+        <a href="../index.html" class="footer-link">CV</a>
+        <a href="https://linkedin.com/in/vladimir-vorotilov" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.addEventListener('mousemove', function(e) {
+      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+    });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+  </script>
+</body>
+</html>
