@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vvorotilov-ai-au.github.io/cv-2026/

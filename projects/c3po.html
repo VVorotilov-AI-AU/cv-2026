@@ -8,6 +8,7 @@
 <meta property="og:title" content="AI Executive Assistant -- Vladimir Vorotilov">
 <meta property="og:description" content="Production AI assistant: 9-phase daily heartbeat, 12 skills, 5 daily intelligence tasks, 8 MCP integrations. My actual operating system.">
 <meta property="og:url" content="https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html">
+<link rel="canonical" href="https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -340,7 +341,7 @@ section{padding:64px 0}
         <div class="arch-block">
           <div class="arch-type">INDEX · auto-load</div>
           <div class="arch-bname">MEMORY.md</div>
-          <div class="arch-binfo">.claude/projects/…/memory/ · indexed · loaded each session</div>
+          <div class="arch-binfo">Indexed memory files · loaded each session</div>
         </div>
       </div>
     </div>
@@ -373,12 +374,12 @@ section{padding:64px 0}
         <div class="arch-block">
           <div class="arch-type">JSON · disk-persisted</div>
           <div class="arch-bname">Loop State</div>
-          <div class="arch-binfo">automations/state/*.json · task-machine · daily_tasks</div>
+          <div class="arch-binfo">Persisted JSON state · task scheduling · daily task tracking</div>
         </div>
         <div class="arch-block">
           <div class="arch-type">AUTH · in-memory</div>
-          <div class="arch-bname">MCP Session Tokens</div>
-          <div class="arch-binfo">Gmail · Calendar · Linear · GitHub · Telegram</div>
+          <div class="arch-bname">API Session Auth</div>
+          <div class="arch-binfo">Email · Calendar · Task management · Code repos · Messaging</div>
         </div>
       </div>
     </div>
@@ -416,7 +417,7 @@ section{padding:64px 0}
         <div class="arch-block">
           <div class="arch-type">API · 10+ servers</div>
           <div class="arch-bname">MCP Integrations</div>
-          <div class="arch-binfo">Gmail · Calendar · Linear · GitHub · Telegram · Indeed · Playwright · Image gen</div>
+          <div class="arch-binfo">Email · Calendar · Task mgmt · Code repos · Messaging · Job boards · Browser automation · Image gen</div>
         </div>
       </div>
     </div>
@@ -473,8 +474,8 @@ section{padding:64px 0}
     <div class="cc-chips">
       <span class="cc-chip primary">Every 2h heartbeat (Phase C)</span>
       <span class="cc-chip">Diff detected: new file, priority change</span>
-      <span class="cc-chip">Career signal flagged in Gmail or Linear</span>
-      <span class="cc-chip">Calendar event added or updated</span>
+      <span class="cc-chip">Career signal flagged in email or task tracker</span>
+      <span class="cc-chip">Calendar event detected</span>
       <span class="cc-chip">Opportunity alert from scanner</span>
       <span class="cc-chip">Manually: "rebuild dashboard"</span>
     </div>
@@ -676,7 +677,7 @@ section{padding:64px 0}
   <div class="sk" onclick="openSheet(5)"><div class="sk-icon">📧</div><div class="sk-name">email-drafter</div><div class="sk-desc">Drafts professional emails applying strict voice profile rules</div><div class="sk-trigger">"draft an email to X"</div></div>
   <div class="sk" onclick="openSheet(6)"><div class="sk-icon">🎯</div><div class="sk-name">meeting-prep</div><div class="sk-desc">Research briefing before any meeting, call, or industry event</div><div class="sk-trigger">"prep me for meeting with X"</div></div>
   <div class="sk" onclick="openSheet(7)"><div class="sk-icon">📅</div><div class="sk-name">weekly-review</div><div class="sk-desc">Weekly wrap, content angles, three focus areas for next week</div><div class="sk-trigger">"weekly review"</div></div>
-  <div class="sk" onclick="openSheet(8)"><div class="sk-icon">🏃</div><div class="sk-name">career-tracker</div><div class="sk-desc">Job search pipeline management using Linear as source of truth</div><div class="sk-trigger">"track this application"</div></div>
+  <div class="sk" onclick="openSheet(8)"><div class="sk-icon">🏃</div><div class="sk-name">career-tracker</div><div class="sk-desc">Job search pipeline management with structured task tracking</div><div class="sk-trigger">"track this application"</div></div>
   <div class="sk" onclick="openSheet(9)"><div class="sk-icon">💓</div><div class="sk-name">command-loop</div><div class="sk-desc">Continuous intelligence heartbeat, self-renewing, session-scoped</div><div class="sk-trigger">"/loop"</div></div>
   <div class="sk" onclick="openSheet(10)"><div class="sk-icon">🔬</div><div class="sk-name">deep-research</div><div class="sk-desc">Iterative scored web research with quality threshold and gap detection</div><div class="sk-trigger">"research X" / "deep dive"</div></div>
   <div class="sk" onclick="openSheet(11)"><div class="sk-icon">🔮</div><div class="sk-name">background-thinker</div><div class="sk-desc">Anticipatory analysis across 5 domains, surfaces non-obvious insights</div><div class="sk-trigger">"think ahead"</div></div>
@@ -795,11 +796,11 @@ section{padding:64px 0}
 
     <div class="skill-panel" id="sp-8">
       <div><div class="sheet-slbl">Trigger</div><div class="sheet-trig">"track this application" / "any follow-ups due"</div></div>
-      <div class="sheet-desc">Job search pipeline management using Linear as the authoritative source of truth, synchronized with the priorities context file.</div>
+      <div class="sheet-desc">Job search pipeline management using a project management tool as the authoritative source of truth, synchronized with the priorities context file.</div>
       <div class="sheet-rows">
-        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Application details + Linear state</div></div>
-        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Updated Linear issues + context sync</div></div>
-        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Creates Linear issues per application, tracks status transitions, flags stale applications at 7+ days with no activity. Demonstrates using a project management tool as an AI-readable state machine.</div></div>
+        <div class="sheet-row"><div class="sheet-key">Input</div><div class="sheet-val">Application details + task tracker state</div></div>
+        <div class="sheet-row"><div class="sheet-key">Output</div><div class="sheet-val">Updated issues + context sync</div></div>
+        <div class="sheet-row"><div class="sheet-key">Detail</div><div class="sheet-val">Creates issues per application, tracks status transitions, flags stale applications at 7+ days with no activity. Demonstrates using a project management tool as an AI-readable state machine.</div></div>
       </div>
     </div>
 
