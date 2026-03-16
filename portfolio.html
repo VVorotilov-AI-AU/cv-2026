@@ -679,6 +679,55 @@
     }
     .recognition-desc a:hover { text-decoration: underline; }
 
+    /* ============================================================
+       AI-POWERED SECTION (Hear My Story)
+       ============================================================ */
+    .ai-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-card);
+      padding: 28px 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .ai-card-icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+      filter: drop-shadow(0 0 12px rgba(244,168,37,0.4));
+    }
+
+    .ai-card-body { flex: 1; }
+
+    .ai-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .ai-card-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .ai-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .ai-card { flex-direction: column; gap: 12px; padding: 20px; }
+      .ai-card-actions { flex-direction: column; }
+    }
+
   </style>
 </head>
 <body>
@@ -875,6 +924,28 @@
         </div>
       </a>
 
+    </div>
+
+    <!-- HEAR MY STORY (AI-powered Q&A) -->
+    <div class="ai-section reveal" style="margin-bottom:32px;">
+      <h2 class="section-header">Hear My Story</h2>
+      <div class="ai-card">
+        <div class="ai-card-icon">&#127911;</div>
+        <div class="ai-card-body">
+          <div class="ai-card-title">AI-powered career overview</div>
+          <p class="ai-card-desc">Trained on my CV, portfolio, and 124 LinkedIn posts. Listen to a 10-minute podcast about my career, or ask questions and get cited answers.</p>
+          <div class="ai-card-actions">
+            <a href="https://notebooklm.google.com/notebook/58cd6751-803f-4105-beeb-0d6c3aa9a347" id="audio-link" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Listen to Career Overview
+            </a>
+            <a href="https://notebooklm.google.com/notebook/58cd6751-803f-4105-beeb-0d6c3aa9a347" id="notebook-link" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Ask About My Experience
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- NARRATIVE BRIDGE -->
