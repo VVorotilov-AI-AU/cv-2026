@@ -408,6 +408,9 @@
     .card-thumb-atlas { background: linear-gradient(135deg, #0a0e17 0%, #002a1a 100%); }
     .card-thumb-atlas::before { background: radial-gradient(ellipse at 50% 50%, #14b8a6, transparent 70%); }
 
+    .card-thumb-controlbridge { background: linear-gradient(135deg, #0a0e17 0%, #062a33 100%); }
+    .card-thumb-controlbridge::before { background: radial-gradient(ellipse at 50% 45%, #22d3ee, transparent 70%); }
+
     .thumb-icon {
       font-size: 2.8rem;
       position: relative;
@@ -420,6 +423,7 @@
     .card-thumb-minres .thumb-icon { filter: drop-shadow(0 0 20px rgba(16,185,129,0.5)); }
     .card-thumb-knis .thumb-icon { filter: drop-shadow(0 0 20px rgba(167,139,250,0.5)); }
     .card-thumb-atlas .thumb-icon { filter: drop-shadow(0 0 20px rgba(20,184,166,0.5)); }
+    .card-thumb-controlbridge .thumb-icon { filter: drop-shadow(0 0 20px rgba(34,211,238,0.55)); }
 
     /* Card body */
     .card-body {
@@ -443,6 +447,7 @@
     .card-label-green { color: var(--accent-3); }
     .card-label-purple { color: var(--accent-4); }
     .card-label-teal { color: #14b8a6; }
+    .card-label-cyan { color: #22d3ee; }
 
     .card-title {
       font-size: 1.1rem;
@@ -506,6 +511,7 @@
     .card-link-green { color: var(--accent-3); }
     .card-link-purple { color: var(--accent-4); }
     .card-link-teal { color: #14b8a6; }
+    .card-link-cyan { color: #22d3ee; }
 
     .project-card:hover .card-link { gap: 8px; }
 
@@ -846,6 +852,32 @@
               <span class="tech-tag">Remotion</span>
             </div>
             <span class="card-link card-link-blue">
+              View
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- CONTROL BRIDGE -->
+      <a href="projects/control-bridge.html" class="project-card">
+        <div class="card-thumb card-thumb-controlbridge">
+          <div class="card-thumb-placeholder">
+            <span class="thumb-icon">&#128225;</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label card-label-cyan">Agent Operations</div>
+          <div class="card-title">Control Bridge</div>
+          <p class="card-desc">Once an organisation runs more than a handful of AI agents, oversight becomes the bottleneck. Control Bridge is the operations console: a single screen to dispatch agents, watch live telemetry over Server-Sent Events, and route the dangerous moves through a human approval gate. Built on FastAPI, Docker, and Claude Code.</p>
+          <div class="card-footer">
+            <div class="tag-row">
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">SSE</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">Claude Code</span>
+            </div>
+            <span class="card-link card-link-cyan">
               View
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
             </span>
