@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vvorotilov-ai-au.github.io/cv-2026/
+Sitemap: https://vvorotilov-ai-au.github.io/cv-2026/sitemap.xml

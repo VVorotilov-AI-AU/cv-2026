@@ -1,0 +1,38 @@
+# Vladimir Vorotilov
+
+Vladimir Vorotilov is a Perth-based mining operations and industrial AI practitioner.
+He has 11 years of heavy industry operations experience across Caterpillar and
+Komatsu dealer networks, with regional P&L accountability, fleet systems, parts
+availability, service operations, Power BI, Dynamics 365, and workflow automation
+experience.
+
+## Primary Pages
+
+- Resume: https://vvorotilov-ai-au.github.io/cv-2026/
+- Portfolio: https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html
+- C-3PO AI executive assistant: https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html
+- Mining digital intelligence platform: https://vvorotilov-ai-au.github.io/cv-2026/projects/minestar.html
+- Control Bridge: https://vvorotilov-ai-au.github.io/cv-2026/projects/control-bridge.html
+- Mining supply intelligence platform: https://vvorotilov-ai-au.github.io/cv-2026/projects/minres.html
+
+## Positioning
+
+- Mining operations first, AI systems second.
+- Practical industrial AI, analytics, and automation for heavy industry.
+- Perth, Western Australia.
+- Full working rights in Australia.
+
+## Public Credentials
+
+- AITAI Associate, AITAI - AI Institute.
+- Anthropic Academy: Claude Code in Action.
+- Anthropic Academy: Building with the Claude API.
+- Anthropic Academy: Introduction to Model Context Protocol.
+- Anthropic Academy: Introduction to Agent Skills.
+- Anthropic Academy: Claude 101.
+
+## Contact
+
+- Email: vvorotilov.au@gmail.com
+- LinkedIn: https://www.linkedin.com/in/vladimir-vorotilov/
+- GitHub: https://github.com/vvorotilov-ai-au

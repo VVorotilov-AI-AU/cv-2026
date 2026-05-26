@@ -21,6 +21,13 @@
 - Resume: https://vvorotilov-ai-au.github.io/cv-2026/
 - Portfolio: https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html
 
+## Discovery Files
+
+- Sitemap: https://vvorotilov-ai-au.github.io/cv-2026/sitemap.xml
+- AI-readable profile: https://vvorotilov-ai-au.github.io/cv-2026/llms.txt
+- SEO and AI discovery plan: [SEO_AI_DISCOVERY_PLAN.md](SEO_AI_DISCOVERY_PLAN.md)
+- UX/UI QA test series: [UX_UI_QA_2026-05-26.md](UX_UI_QA_2026-05-26.md)
+
 ## Current Public Credentials
 
 - AITAI Associate, AITAI - AI Institute
