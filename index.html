@@ -40,7 +40,7 @@
       .annotated { text-decoration: none !important; color: inherit !important; }
       .name-text { color: #1a3a5c !important; -webkit-text-fill-color: #1a3a5c !important; background: none !important; }
       .section-header { color: #1a3a5c !important; border-color: #cdd8e3 !important; }
-      .job-card, .project-card, .edu-block, .cert-item, .additional-item, .summary-text {
+      .job-card, .project-card, .edu-block, .cert-item, .membership-card, .additional-item, .summary-text {
         background: white !important; border: 1px solid #ccc !important; break-inside: avoid;
       }
       header { border-color: #1a3a5c !important; }
@@ -515,6 +515,40 @@
     }
 
     /* ============================================================
+       MEMBERSHIPS
+       ============================================================ */
+    .membership-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-3);
+      border-radius: var(--radius-card);
+      padding: 20px 24px;
+    }
+
+    .membership-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-3);
+      margin-bottom: 8px;
+    }
+
+    .membership-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .membership-meta {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
        ADDITIONAL
        ============================================================ */
     .additional-grid { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -867,11 +901,20 @@
         <a class="cert-item reveal d3" href="https://verify.skilljar.com/c/k38hs29ajp7a" target="_blank" rel="noopener noreferrer">Anthropic Academy: Claude Code in Action</a>
         <a class="cert-item reveal d4" href="https://verify.skilljar.com/c/87iwjwe8nd28" target="_blank" rel="noopener noreferrer">Anthropic Academy: Introduction to Agent Skills</a>
         <a class="cert-item reveal d1" href="https://verify.skilljar.com/c/qizjqt4wff7i" target="_blank" rel="noopener noreferrer">Anthropic Academy: Claude 101</a>
-        <div class="cert-item reveal d2">AITAI Associate, AITAI - AI Institute</div>
-        <div class="cert-item reveal d3">Microsoft Power Platform</div>
-        <div class="cert-item reveal d4">Microsoft Data Analytics</div>
-        <div class="cert-item reveal d1">MineStar Systems (Caterpillar)</div>
-        <div class="cert-item reveal d2">Caterpillar Parts Operations &amp; Contamination Control</div>
+        <div class="cert-item reveal d2">Microsoft Power Platform</div>
+        <div class="cert-item reveal d3">Microsoft Data Analytics</div>
+        <div class="cert-item reveal d4">MineStar Systems (Caterpillar)</div>
+        <div class="cert-item reveal d1">Caterpillar Parts Operations &amp; Contamination Control</div>
+      </div>
+    </section>
+
+    <!-- PROFESSIONAL MEMBERSHIP -->
+    <section data-section="memberships">
+      <h2 class="section-header reveal">Professional Membership</h2>
+      <div class="membership-card reveal d1">
+        <div class="membership-label">AITAI - AI Institute</div>
+        <div class="membership-title">AITAI Associate</div>
+        <p class="membership-meta">Issued May 2026. Credential ID: AITAI-ASC-69efc54b.</p>
       </div>
     </section>
 
@@ -895,6 +938,13 @@
           <strong>Licence</strong>
           <span>Western Australian driver's licence</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ONLINE PAGES -->
+    <section data-section="links">
+      <h2 class="section-header reveal">Online Pages</h2>
+      <div class="additional-grid">
         <div class="additional-item reveal d1">
           <strong>Resume</strong>
           <span><a href="index.html" style="color:inherit;text-decoration:none;border-bottom:1px dotted rgba(244,168,37,0.35);">vvorotilov-ai-au.github.io/cv-2026/</a></span>
@@ -930,7 +980,9 @@
         competencies:  'rgba(16,185,129,0.07)',
         education:     'rgba(167,139,250,0.06)',
         certifications:'rgba(244,168,37,0.06)',
+        memberships:   'rgba(16,185,129,0.06)',
         additional:    'rgba(244,168,37,0.05)',
+        links:         'rgba(59,130,246,0.05)',
       };
 
       function sectionAt(clientY) {

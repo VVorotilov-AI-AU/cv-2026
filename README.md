@@ -16,6 +16,11 @@
 | [Portfolio](https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html) | Project showcase with live demos and selected systems |
 | [C-3PO Showcase](https://vvorotilov-ai-au.github.io/cv-2026/showcase.html) | AI executive assistant built with Claude Code |
 
+## Current Public Pages
+
+- Resume: https://vvorotilov-ai-au.github.io/cv-2026/
+- Portfolio: https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html
+
 ## Current Public Credentials
 
 - AITAI Associate, AITAI - AI Institute
@@ -24,6 +29,9 @@
 - Anthropic Academy: Introduction to Model Context Protocol
 - Anthropic Academy: Introduction to Agent Skills
 - Anthropic Academy: Claude 101
+
+## Mobility
+
 - Western Australian driver's licence
 
 ## Portfolio Projects
