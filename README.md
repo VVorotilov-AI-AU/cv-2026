@@ -1,8 +1,8 @@
 # Vladimir Vorotilov
 
-**Mining Operations & Digital Transformation | Perth, WA**
+**Mining Operations, Industrial AI & Digital Transformation | Perth, WA**
 
-11 years in mining operations (underground, surface, ROM, maintenance systems), now building AI and analytics solutions for heavy industry.
+11 years in mining operations (underground, surface, ROM, maintenance systems), now building practical AI systems, analytics, and workflow automation for heavy industry.
 
 ## Live Site
 
@@ -12,9 +12,19 @@
 
 | Page | Description |
 |------|-------------|
-| [CV](https://vvorotilov-ai-au.github.io/cv-2026/) | Professional background, experience, and skills |
-| [Portfolio](https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html) | Project showcase with live demos |
+| [Resume](https://vvorotilov-ai-au.github.io/cv-2026/) | Professional background, experience, credentials, and skills |
+| [Portfolio](https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html) | Project showcase with live demos and selected systems |
 | [C-3PO Showcase](https://vvorotilov-ai-au.github.io/cv-2026/showcase.html) | AI executive assistant built with Claude Code |
+
+## Current Public Credentials
+
+- AITAI Associate, AITAI - AI Institute
+- Anthropic Academy: Claude Code in Action
+- Anthropic Academy: Building with the Claude API
+- Anthropic Academy: Introduction to Model Context Protocol
+- Anthropic Academy: Introduction to Agent Skills
+- Anthropic Academy: Claude 101
+- Western Australian driver's licence
 
 ## Portfolio Projects
 
