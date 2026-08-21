@@ -45,7 +45,7 @@
 
 | Project | Stack | What it does |
 |---------|-------|-------------|
-| [MinRes Supply Intelligence](https://vvorotilov-ai-au.github.io/cv-2026/projects/minres.html) | Streamlit, Python, scikit-learn | 7-page analytics dashboard for mining procurement |
+| [Mining Supply Intelligence Platform](https://vvorotilov-ai-au.github.io/cv-2026/projects/minres.html) | Streamlit, Python, scikit-learn | 7-page analytics dashboard for mining procurement |
 | [MineStar Interview Suite](https://vvorotilov-ai-au.github.io/cv-2026/projects/minestar.html) | React 19, Turborepo, Recharts | CAT/MineStar condition monitoring command center |
 | [KNIS Network Intelligence](https://vvorotilov-ai-au.github.io/cv-2026/projects/knis.html) | SvelteKit, FastAPI, MapLibre | LinkedIn professional network analyzer |
 | [C-3PO Executive Assistant](https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html) | Claude Code, MCP, Linear | AI-powered personal operations center |
