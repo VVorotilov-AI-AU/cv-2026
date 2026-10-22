@@ -1,8 +1,8 @@
 # Vladimir Vorotilov
 
-**Mining Operations, Industrial AI & Digital Transformation | Perth, WA**
+**OEM Dealer Operations, Industrial AI & Digital Transformation | Perth, WA**
 
-11 years in mining operations (underground, surface, ROM, maintenance systems), now building practical AI systems, analytics, and workflow automation for heavy industry.
+11 years at the official Caterpillar and Komatsu dealers (parts, service and field support for the mines running the machines), with practical AI systems, analytics and workflow automation for heavy industry built on that foundation.
 
 ## Live Site
 
@@ -14,7 +14,7 @@
 |------|-------------|
 | [Resume](https://vvorotilov-ai-au.github.io/cv-2026/) | Professional background, experience, credentials, and skills |
 | [Portfolio](https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html) | Project showcase with live demos and selected systems |
-| [C-3PO Showcase](https://vvorotilov-ai-au.github.io/cv-2026/showcase.html) | AI executive assistant built with Claude Code |
+| [Assistant Showcase](https://vvorotilov-ai-au.github.io/cv-2026/showcase.html) | AI executive assistant built with Claude Code |
 
 ## Current Public Pages
 
@@ -48,7 +48,7 @@
 | [Mining Supply Intelligence Platform](https://vvorotilov-ai-au.github.io/cv-2026/projects/minres.html) | Streamlit, Python, scikit-learn | 7-page analytics dashboard for mining procurement |
 | [MineStar Interview Suite](https://vvorotilov-ai-au.github.io/cv-2026/projects/minestar.html) | React 19, Turborepo, Recharts | CAT/MineStar condition monitoring command center |
 | [KNIS Network Intelligence](https://vvorotilov-ai-au.github.io/cv-2026/projects/knis.html) | SvelteKit, FastAPI, MapLibre | LinkedIn professional network analyzer |
-| [C-3PO Executive Assistant](https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html) | Claude Code, MCP, Linear | AI-powered personal operations center |
+| [Personal AI Executive Assistant](https://vvorotilov-ai-au.github.io/cv-2026/projects/personal-ai-assistant.html) | Claude Code, MCP, Linear | AI-powered personal operations center |
 
 ## Tech Stack
 

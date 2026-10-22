@@ -1,6 +1,6 @@
 # Vladimir Vorotilov
 
-Vladimir Vorotilov is a Perth-based mining operations and industrial AI practitioner.
+Vladimir Vorotilov is a Perth-based operations leader from the official Caterpillar and Komatsu dealers, building industrial AI systems on that foundation.
 He has 11 years of heavy industry operations experience across Caterpillar and
 Komatsu dealer networks, with regional P&L accountability, fleet systems, parts
 availability, service operations, Power BI, Dynamics 365, and workflow automation
@@ -10,14 +10,14 @@ experience.
 
 - Resume: https://vvorotilov-ai-au.github.io/cv-2026/
 - Portfolio: https://vvorotilov-ai-au.github.io/cv-2026/portfolio.html
-- C-3PO AI executive assistant: https://vvorotilov-ai-au.github.io/cv-2026/projects/c3po.html
+- Personal AI executive assistant: https://vvorotilov-ai-au.github.io/cv-2026/projects/personal-ai-assistant.html
 - Mining digital intelligence platform: https://vvorotilov-ai-au.github.io/cv-2026/projects/minestar.html
 - Control Bridge: https://vvorotilov-ai-au.github.io/cv-2026/projects/control-bridge.html
 - Mining supply intelligence platform: https://vvorotilov-ai-au.github.io/cv-2026/projects/minres.html
 
 ## Positioning
 
-- Mining operations first, AI systems second.
+- OEM dealer operations credential, with AI systems built on top.
 - Practical industrial AI, analytics, and automation for heavy industry.
 - Perth, Western Australia.
 - Full working rights in Australia.
